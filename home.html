@@ -9,6 +9,34 @@
     <!-- SERVER PORT IS 3004 : DIGITAL OCEAN YOUR IP : 3004 -->
 </head>
 <body>
-    
+
+    <!-- For later -->
+    <header>
+        <h1>LOC</h1>
+    </header>
+
+    <!-- Form -->
+    <form id="loc-form" action="#" method="put">
+        <legend>Division</legend>
+        <select id ="division" name="division">
+            <option value="Select">Select</option>
+            <option value="fine-arts">Fine Arts</option>
+            <option value="Humanities ">Humanities </option>
+            <option value="social-science">Social Science</option>
+            <option value="english">English</option>
+            <option value="science">Science</option>
+            <option value="BL&E">Business, Law, and Education</option>
+            <option value="technology">Technology</option>
+            <option value="health-science">Health Science</option>
+            <option value="trades">Trades</option>
+            <option value="tran-studies">Transitional Studies</option>
+        </select>
+        <span id="err-div" class ="error">Must Select a division</span>
+
+
+
+        <button type="submit" id="save">Save</button>
+        <button type="submit" id="cancel">Cancel</button>
+    </form>
 </body>
 </html>
