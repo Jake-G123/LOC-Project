@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Outcomes Committee</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <script src="js/loc.js" defer></script>
 
     <!-- SERVER PORT IS 3004 : DIGITAL OCEAN YOUR IP : 3004 -->
 </head>
@@ -19,9 +20,9 @@
     <form id="loc-form" action="#" method="put">
         <legend>Division</legend>
         <select id ="division" name="division">
-            <option value="Select">Select</option>
+            <option value="select">Select</option>
             <option value="fine-arts">Fine Arts</option>
-            <option value="Humanities ">Humanities </option>
+            <option value="humanities">Humanities </option>
             <option value="social-science">Social Science</option>
             <option value="english">English</option>
             <option value="science">Science</option>
@@ -32,8 +33,14 @@
             <option value="tran-studies">Transitional Studies</option>
         </select>
         <span id="err-div" class ="error">Must Select a division</span>
-
-
+        
+        <div id="info">
+            <label>Division : <input type="text" id="div-name" name="div-name" placeholder=""></label>
+            <label>Chair : <input type="text" id="chair" name="chair" placeholder=""></label>
+            <label>Dean : <input type="text" id="dean" name="dean" placeholder=""></label>
+            <label>LOC Rep : <input type="text" id="loc" name="loc" placeholder=""></label>
+            <label>PEN Contact : <input type="text" id="pen" name="pen" placeholder=""></label>
+        </div>
 
         <button type="submit" id="save">Save</button>
         <button type="submit" id="cancel">Cancel</button>
