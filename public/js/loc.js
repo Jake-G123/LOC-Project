@@ -20,42 +20,38 @@ document.addEventListener("DOMContentLoaded", () => {
         "trades": ["Music", "Paul Metevier", "Christie Gilliland", "Monica Bowen", "Liz Peterson"],
         "tran-studies": ["Music", "Paul Metevier", "Christie Gilliland", "Monica Bowen", "Liz Peterson"]
     };
-
+    //Changes the values of the placeholders when the division is selected
     divisionSelect.addEventListener("change", () => {
-        const selected = divisionInfo.value;
-
-        divName.value = "";
-        chair.value = "";
-        dean.value = "";
-        loc.value = "";
-        pen.value = "";
+        const selected = divisionSelect.value;
 
         if(selected === "select") {
-            divName.placeholder = "";
-            chair.placeholder = "";
-            dean.placeholder = "";
-            loc.placeholder = "";
-            pen.placeholder = "";
+            divName.value = "";
+            chair.value = "";
+            dean.value = "";
+            loc.value = "";
+            pen.value = "";
             return;
         }
 
         const info = divisionInfo[selected]
 
         if(info) {
-            divName.placeholder = info[0];
-            chair.placeholder = info[1];
-            dean.placeholder = info[2];
-            loc.placeholder = info[3];
-            pen.placeholder = info[4];
-        } else {
-            divName.placeholder = "?";
-            chair.placeholder = "";
-            dean.placeholder = "";
-            loc.placeholder = "";
-            pen.placeholder = "";
+            divName.value = info[0];
+            chair.value = info[1];
+            dean.value = info[2];
+            loc.value = info[3];
+            pen.value = info[4];
         }
     });
 });
+
+function clearErrors(){
+    let errors = document.getElementsByClassName("error");
+    for(let i = 0; i < errors.length; i++)
+    {
+        errors[i].style.display = "none";
+    }
+}
 
 
 
