@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Outcomes Committee</title>
+    <script src="js/error.js" defer></script>
     <script src="js/loc.js"></script>
     <link rel="stylesheet" href="styles/styles.css">
     
@@ -33,14 +34,18 @@
             <option value="trades">Trades</option>
             <option value="tran-studies">Transitional Studies</option>
         </select>
-        <span id="err-div" class ="error">Must Select a division</span>
         
         <div id="info">
-            <label>Division : <input type="text" id="div-name" name="div-name"> </label>
-            <label>Chair : <input type="text" id="chair" name="chair"> </label>
-            <label>Dean : <input type="text" id="dean" name="dean"> </label>
-            <label>LOC Rep : <input type="text" id="loc" name="loc"> </label>
-            <label>PEN Contact : <input type="text" id="pen" name="pen"> </label>
+            <label for="div-name">Division : <input type="text" id="div-name" name="div-name"> </label>
+            <span id="err-div" class ="error">Division can't be blank</span>
+            <label for="chair">Chair : <input type="text" id="chair" name="chair"> </label>
+            <span id="err-chair" class ="error">Chair can't be blank</span>
+            <label for="dean">Dean : <input type="text" id="dean" name="dean"> </label>
+            <span id="err-dean" class ="error">Dean can't be blank</span>
+            <label for="loc">LOC Rep : <input type="text" id="loc" name="loc"> </label>
+            <span id="err-loc" class ="error">LOC can't be blank</span>
+            <label for="pen">PEN Contact : <input type="text" id="pen" name="pen"> </label>
+            <span id="err-pen" class ="error">PEN can't be blank</span>
         </div>
 
         <button type="submit" id="save">Save</button>
