@@ -1,3 +1,7 @@
+/** 
+    TODO: We can have a team meeting to talk about how we want it set up right now is very very minimal.
+*/
+
 h1 {
     color: blue;
 }
@@ -13,4 +17,16 @@ label {
 .error {
     color: red;
     display: none;
+}
+
+button {
+    display: none;
+}
+
+#cancel {
+    color: grey;
+}
+
+#save {
+    color: green;
 }

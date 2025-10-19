@@ -1,3 +1,9 @@
+/*
+    This code is for the error to appear on a empty line on any of the fields
+
+    TODO: Nothing it works as intended
+*/
+
 document.getElementById("loc-form").onsubmit = () => {
 
     clearErrors();

@@ -1,3 +1,14 @@
+/*
+    This code is where the data on the field is saved and to appear on click.
+
+    Will be updated when we make it to server side code but in the mean time it works 
+
+    VERY CLUNKY AND EASY TO BREAK BE CAREFUL
+
+    TODO: The division info needs the updated names and chair. If its blank just put the same name as above for the
+    information given.
+*/
+
 document.addEventListener("DOMContentLoaded", () => {
     const divisionSelect = document.getElementById("division");
 
@@ -44,7 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-
 
 
 
