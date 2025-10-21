@@ -20,7 +20,7 @@ label {
 }
 
 button {
-    display: none;
+    /* display: none; -- always display buttons --*/
 }
 
 #cancel {
