@@ -20,41 +20,53 @@
 
     <!-- Form -->
     <form id="loc-form" action="#" method="put">
-        <legend>Division</legend>
-        <select id ="division" name="division">
-            <option value="select">Select</option>
-            <option value="fine-arts">Fine Arts</option>
-            <option value="humanities">Humanities</option>
-            <option value="social-science">Social Science</option>
-            <option value="english">English</option>
-            <option value="science">Science</option>
-            <option value="BL&E">Business, Law, and Education</option>
-            <option value="technology">Technology</option>
-            <option value="health-science">Health Science</option>
-            <option value="trades">Trades</option>
-            <option value="tran-studies">Transitional Studies</option>
-        </select>
-        
-        <div id="info">
-            <label for="div-name">Division : <input type="text" id="div-name" name="div-name"> </label>
-            <span id="err-div" class ="error">Division can't be blank</span>
-            <label for="chair">Chair : <input type="text" id="chair" name="chair"> </label>
-            <span id="err-chair" class ="error">Chair can't be blank</span>
-            <label for="dean">Dean : <input type="text" id="dean" name="dean"> </label>
-            <span id="err-dean" class ="error">Dean can't be blank</span>
-            <label for="loc">LOC Rep : <input type="text" id="loc" name="loc"> </label>
-            <span id="err-loc" class ="error">LOC can't be blank</span>
-            <label for="pen">PEN Contact : <input type="text" id="pen" name="pen"> </label>
-            <span id="err-pen" class ="error">PEN can't be blank</span>
-        </div>
-
-        <button type="submit" id="save">Save</button>
-        <button type="reset" id="cancel">Cancel</button>
+        <fieldset id="division-dropdown">
+            <legend>Division</legend>
+            <select id ="division" name="division">
+                <option value="select">Select</option>
+                <option value="fine-arts">Fine Arts</option>
+                <option value="humanities">Humanities</option>
+                <option value="social-science">Social Science</option>
+                <option value="english">English</option>
+                <option value="science">Science</option>
+                <option value="BL&E">Business, Law, and Education</option>
+                <option value="technology">Technology</option>
+                <option value="health-science">Health Science</option>
+                <option value="trades">Trades</option>
+                <option value="tran-studies">Transitional Studies</option>
+            </select>
+        </fieldset>
+        <fieldset id="info">
+            <div>
+                <label for="div-name">Division : <input type="text" id="div-name" name="div-name"> </label>
+                <span id="err-div" class ="error">Division can't be blank</span>
+            </div>
+            <div>
+                <label for="chair">Chair : <input type="text" id="chair" name="chair"> </label>
+                <span id="err-chair" class ="error">Chair can't be blank</span>
+            </div>
+            <div>
+                <label for="dean">Dean : <input type="text" id="dean" name="dean"> </label>
+                <span id="err-dean" class ="error">Dean can't be blank</span>
+            </div>
+            <div>
+                <label for="loc">LOC Rep : <input type="text" id="loc" name="loc"> </label>
+                <span id="err-loc" class ="error">LOC can't be blank</span>
+            </div>
+            <div>
+                <label for="pen">PEN Contact : <input type="text" id="pen" name="pen"> </label>
+                <span id="err-pen" class ="error">PEN can't be blank</span>
+            </div>
+        </fieldset>
+        <fieldset id="buttons">
+            <button type="submit" id="save">Save</button>
+            <button type="reset" id="cancel">Cancel</button>
+        </fieldset>
     </form>
 
     <!-- Contemplating putting the table here so we can see what it looks like now with the table given.
         TODO: team meeting this part is totally optional right now. 
-    -->
+    
     <div id = "information-container">
         <div id = "division-chart">
 
@@ -69,5 +81,6 @@
 
         </div>
     </div>
+    -->
 </body>
 </html>

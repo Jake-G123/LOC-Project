@@ -2,31 +2,83 @@
     TODO: We can have a team meeting to talk about how we want it set up right now is very very minimal.
 */
 
-h1 {
-    color: blue;
+html {
+    background-color:lightblue;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    min-width: 240px;
 }
-
+body {
+    background-color: white;
+    width:90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: .5rem;
+}
+h1 {
+    color: darkblue;
+    text-align: center;
+    padding:1rem;
+}
+#division-dropdown {
+    justify-self: center;
+    border-style:none;
+}
+#info {
+    display:flex;
+    flex-flow:row nowrap;
+    justify-content: center;
+    border-style:none;
+}
+#info > div {
+    flex-direction: column;
+}
+#buttons {
+    display:flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    border-style: none;
+}
 input {
     display: grid;
 }
-
 label {
     display: block;
 }
-
+legend {
+    font-weight: bold;
+}
 .error {
     color: red;
     display: none;
 }
-
 button {
     /* display: none; -- always display buttons --*/
 }
-
 #cancel {
-    color: grey;
+    border: none;
+    background-color: grey;
+    border-color: grey;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
 }
-
 #save {
-    color: green;
+    border: none;
+    background-color: green;
+    border-color: green;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+}
+@media (max-width: 975px) {
+    #info {
+        display:flex;
+        flex-flow:column nowrap;
+        align-items: center;
+        border-style:none;
+    }
 }
