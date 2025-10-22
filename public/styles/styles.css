@@ -53,6 +53,7 @@ legend {
 }
 button {
     /* display: none; -- always display buttons --*/
+    display: none;
 }
 #cancel {
     border: none;
