@@ -85,5 +85,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+/* For validation later.
+document.getElementById("loc-form").onsubmit = () => {
+
+    clearErrors();
+
+    //validate first name
+    let fname = document.getElementById('fname').value.trim();
+
+    let isValid = true;
+    if(fname === "") {
+        document.getElementById("err-fname").style.display = "block";
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function clearErrors(){
+    let errors = document.getElementsByClassName("error");
+    for(let i = 0; i < errors.length; i++)
+    {
+        errors[i].style.display = "none";
+    }
+}*/
+
 
 

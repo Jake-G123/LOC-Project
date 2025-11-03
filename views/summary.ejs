@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Outcomes Committee</title>
+    <script src="js/error.js" defer></script>
+    <script src="js/loc.js"></script>
+    <link rel="stylesheet" href="styles/styles.css">
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="//cdn.datatables.net/2.3.4/js/dataTables.min.js"></script>
+
+    <link rel="stylesheet" href="//cdn.datatables.net/2.3.4/css/dataTables.dataTables.min.css">
+
+    <!-- SERVER PORT IS 3004 : DIGITAL OCEAN YOUR IP : 3004 -->
+</head>
+<body>
+<h1>Admin Page</h1>
+        <table id = "order-table" class = "display">
+            <thead>
+                <tr>
+                    <th>Division</th>
+                    <th>Chair</th>
+                    <th>Dean</th>
+                    <th>LOC Rep</th>
+                    <th>Contact</th>
+                    <th>commment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% fields.forEach(field => { %>
+                    <tr>
+                        <td><%= field.div-name %><%= order.lname %></td>
+                        <td><%= order.email %></td>
+                        <td><%= order.flavor %></td>
+                        <td><%= order.method %></td>
+                        <td><%= order.toppings %></td>
+                        <td><%= order.comment %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <main>
+    <script defer>
+        let table = new DataTable('#order-table');
+    </script>
+</body>
+</html>
