@@ -1,5 +1,20 @@
+Division
 Academic Program
 Division Chair
 Dean
 LOC Rep
 PEN Contact
+Payee(s)
+Has Been Paid (Yes/No)
+Report Submitted (Yes/No)
+Notes
+
+division : req.body.divname,
+        chair : req.body.chair,
+        dean : req.body.dean,
+        rep : req.body.rep,
+        contact : req.body.loc,
+        payee : req.body.payee,
+        paid : req.body.paid,
+        submitted : req.body.submitted,
+        note : req.body.note

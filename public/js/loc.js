@@ -17,22 +17,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const dean = document.getElementById("dean");
     const loc = document.getElementById("loc");
     const pen = document.getElementById("pen");
+    const payee = document.getElementById("payee");
+    const paid = document.getElementById("paid");
+    const submitted = document.getElementById("submitted");
+    const notes = document.getElementById("notes");
 
     const save = document.getElementById("save");
     const cancel = document.getElementById("cancel");
 
     // Info for each division
     const divisionInfo = {
-        "fine-arts": ["Music", "Paul Metevier", "Christie Gilliland", "Monica Bowen", "Liz Peterson"],
-        "humanities": ["Communication Studies", "Katie Cunnion", "Jamie Fitzgerald", "Lisa Luengo", "Liz Peterson"],
-        "social-science": ["Anthropology", "Mark Thomason", "Christie Gilliland", "Joy Crawford", "Liz Peterson"],
-        "english": ["English", "Ian Sherman", "Jamie Fitzgerald", "Jake Frye", "Liz Peterson"],
-        "science": ["Anatomy and Physiology", "Katy Shaw and Danny Najera", "Miebeth Bustillo-Booth", "Nicole Feider", "Heather Lambert"],
-        "BL&E": ["Accounting", "Lea Ann Simpson", "Lea Ann Simpson", "Jane Swenson", "Mary Singer"],
-        "technology": ["Aviation", "Michael Wood", "Lea Ann Simpson", "Josh Archer", "Angie Brenner"],
-        "health-science": ["Practical Nursing", "Leslie Kessler", "Lionel Candido Flores", "Thom Jackson", "Liz Peterson"],
-        "trades": ["Automotive Technology", "David Lewis", "Lea Ann Simpson", "Ben Orr", "Mary Singer"],
-        "tran-studies": ["Health and Physical Education", "Paul Metevier", "Lionel Candido Flores", "Thom Jackson", "Liz Peterson"]
+        "fine-arts": ["Music", "Paul Metevier", "Christie Gilliland", "Monica Bowen", "Liz Peterson", "Name", "no", "no", "notes"],
+        "humanities": ["Communication Studies", "Katie Cunnion", "Jamie Fitzgerald", "Lisa Luengo", "Liz Peterson", "Name", "no", "no", "notes"],
+        "social-science": ["Anthropology", "Mark Thomason", "Christie Gilliland", "Joy Crawford", "Liz Peterson", "Name", "no", "no", "notes"],
+        "english": ["English", "Ian Sherman", "Jamie Fitzgerald", "Jake Frye", "Liz Peterson", "Name", "no", "no", "notes"],
+        "science": ["Anatomy and Physiology", "Katy Shaw and Danny Najera", "Miebeth Bustillo-Booth", "Nicole Feider", "Heather Lambert", "Name", "no", "no", "notes"],
+        "BL&E": ["Accounting", "Lea Ann Simpson", "Lea Ann Simpson", "Jane Swenson", "Mary Singer", "Name", "no", "no", "notes"],
+        "technology": ["Aviation", "Michael Wood", "Lea Ann Simpson", "Josh Archer", "Angie Brenner", "Name", "no", "no", "notes"],
+        "health-science": ["Practical Nursing", "Leslie Kessler", "Lionel Candido Flores", "Thom Jackson", "Liz Peterson", "Name", "no", "no", "notes"],
+        "trades": ["Automotive Technology", "David Lewis", "Lea Ann Simpson", "Ben Orr", "Mary Singer", "Name", "no", "no", "notes"],
+        "tran-studies": ["Health and Physical Education", "Paul Metevier", "Lionel Candido Flores", "Thom Jackson", "Liz Peterson", "Name", "no", "no", "notes"]
     };
 
     let currentInfo = [];
@@ -46,6 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
             dean.value = "";
             loc.value = "";
             pen.value = "";
+            payee.value = "";
+            paid.value = "";
+            submitted.value = "";
+            notes.value = "";
             currentInfo = [];
             save.style.display = "none";
             cancel.style.display = "none";
@@ -59,6 +67,11 @@ document.addEventListener("DOMContentLoaded", () => {
             dean.value = info[2];
             loc.value = info[3];
             pen.value = info[4];
+            payee.value = info[5];
+            paid.value = info[6];
+            submitted.value = info[7];
+            notes.value = info[8];
+            timestamp: new Date().toLocaleString();
 
             currentInfo = [...info];
             save.style.display = "none";
@@ -69,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Check for input changes compared to currentInfo
     const checkChanges = () => {
         if (
-            divName.value !== currentInfo[0] || chair.value !== currentInfo[1] || dean.value !== currentInfo[2] || loc.value !== currentInfo[3] || pen.value !== currentInfo[4]
+            divName.value !== currentInfo[0] || chair.value !== currentInfo[1] || dean.value !== currentInfo[2] || loc.value !== currentInfo[3] || pen.value !== currentInfo[4] || payee.value !== currentInfo[5] || paid.value !== currentInfo[6] || submitted.value !== currentInfo[7]
         ) {
             save.style.display = "block";
             cancel.style.display = "block";
@@ -80,35 +93,23 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     //calls to check current info on input
-    [divName, chair, dean, loc, pen].forEach(input => {
+    [divName, chair, dean, loc, pen, payee, paid, submitted, notes].forEach(input => {
         input.addEventListener("input", checkChanges);
     });
+
+    save.addEventListener("click", (event) => {
+
+        event.preventDefault();
+
+        const confirmed = confirm("Are you sure you want to save this submission?");
+
+        if (confirmed) {
+            document.getElementById("loc-form").submit();
+        } else {
+            alert("Submission canceled.");
+        }
+    });
 });
-
-/* For validation later.
-document.getElementById("loc-form").onsubmit = () => {
-
-    clearErrors();
-
-    //validate first name
-    let fname = document.getElementById('fname').value.trim();
-
-    let isValid = true;
-    if(fname === "") {
-        document.getElementById("err-fname").style.display = "block";
-        isValid = false;
-    }
-
-    return isValid;
-}
-
-function clearErrors(){
-    let errors = document.getElementsByClassName("error");
-    for(let i = 0; i < errors.length; i++)
-    {
-        errors[i].style.display = "none";
-    }
-}*/
 
 
 
