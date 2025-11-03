@@ -3,37 +3,89 @@
 */
 
 html {
+    height: 100%;
+    display: grid;
+    place-items: center;
     background-color:lightblue;
     font-family: 'Segoe UI', Roboto, sans-serif;
     min-width: 240px;
 }
 body {
     background-color: white;
-    width:90%;
-    margin-left: 5%;
-    margin-right: 5%;
     border-radius: .5rem;
+    padding: 1.5rem 2%; 
+    max-width: 750px;
+    width: 90%; 
+    min-height: 40vh;
 }
-html:has(.summary)  { /* For summary page */
-    min-width: 1000px;
+html:has(.summary) {
+    min-width:1000px;
+    height:auto;
+    display:grid;
+    place-items: center;
+
+}
+html:has(.summary) body {
+    max-width: 1400px;
 }
 h1 {
     color: darkblue;
     text-align: center;
-    padding:1rem;
+    margin:0;
+}
+h2 {
+    text-align: center;
+    margin:0;
+}
+a:link, a:visited {
+  color: blue;
+  text-decoration: none;
+}
+a:hover {
+  color:deepskyblue;
 }
 #division-dropdown {
     justify-self: center;
     border-style:none;
 }
 #info {
-    display:flex;
-    flex-flow:row wrap;
-    justify-content: center;
-    border-style:none;
+    display:grid;
+    justify-self: center;
+    border-style: none;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    column-gap: 10px;
+    grid-template-areas: 
+    "program chair dean"
+    "loc pen payee"
+    "paid submitted notes";
 }
-#info > div {
-    flex-direction: column;
+.program {
+    grid-area: program;
+}
+.chair {
+    grid-area: chair;
+}
+.dean {
+    grid-area: dean;
+}
+.loc {
+    grid-area: loc;
+}
+.pen {
+    grid-area: pen;
+}
+.payee {
+    grid-area: payee;
+}
+.paid {
+    grid-area: paid;
+}
+.submitted {
+    grid-area: submitted;
+}
+.notes {
+    grid-area: notes;
 }
 #buttons {
     display:flex;
@@ -55,7 +107,6 @@ legend {
     display: none;
 }
 button {
-    /* display: none; -- always display buttons --*/
     display: none;
 }
 #cancel {
@@ -78,7 +129,7 @@ button {
     color: white;
     font-size: 1rem;
 }
-@media (max-width: 975px) {
+@media (max-width: 575px) {
     #info {
         display:flex;
         flex-flow:column nowrap;
