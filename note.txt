@@ -18,3 +18,17 @@ division : req.body.divname,
         paid : req.body.paid,
         submitted : req.body.submitted,
         note : req.body.note
+
+
+Some things that I believe need to be fixed/added :
+        - Input validation currently does not work. The assignment seems to imply that Academic Program is the only one that cant be blank?
+        - On LOC Sprint #1 Tina left this comment:
+                Great start!
+
+                Error messages are persisting when I switch between divisions. 
+
+                Hide the editable form until a division is selected, and again after Save or Cancel.
+
+                One HTML validation error.
+        - CSS for summary page can mess up with resizing
+        - Might need to have multiple academic programs per division. This would be a nightmare to implement
