@@ -22,7 +22,7 @@ division : req.body.divname,
 
 Some things that I believe need to be fixed/added :
         - Input validation currently does not work. The assignment seems to imply that Academic Program is the only one that cant be blank?
-        - Editing adds new row instead of changing pre existing
+        - Editing adds new row instead of changing pre existing --FIXED BUT FORM DOES NOT USE UPDATED OBJECT--
         - On LOC Sprint #1 Tina left this comment:
                 Great start!
 
