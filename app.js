@@ -28,6 +28,7 @@ const divisionInfo = {
 };
 
 const fields = Object.entries(divisionInfo).map(([key, info]) => ({
+    id: key,
   division: key,
   program: info[0],
   chair: info[1],
@@ -59,7 +60,8 @@ app.get('/summary', (req, res) => {
 
 app.post('/submit-button', (req, res) => {
     const field = {
-        division : divisionInfo.key,
+        id: req.body.division,
+        division : req.body.division,
         chair : req.body.chair,
         dean : req.body.dean,
         loc : req.body.loc,
@@ -70,8 +72,13 @@ app.post('/submit-button', (req, res) => {
         note : req.body.note,
         timestamp: new Date().toLocaleString()
     }
+    const existingIndex = fields.findIndex(item => item.id === field.id);
 
-    fields.push(field);
+    if (existingIndex !== -1) {
+        fields[existingIndex] = field;
+    } else {
+        fields.push(field);
+    }
     console.log(fields);
     res.render('summary', { fields, message: 'Submission saved' });
 })
