@@ -11,7 +11,8 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     const divisionSelect = document.getElementById("division");
-
+    const programContainer = document.getElementById("program-container");
+    const programDropdown = document.getElementById("program-dropdown");
     const divName = document.getElementById("div-name");
     const chair = document.getElementById("chair");
     const dean = document.getElementById("dean");
@@ -26,6 +27,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const cancel = document.getElementById("cancel");
 
     // Info for each division
+    const programInfo = {
+        "fine-arts": ["Music"],
+        "humanities": ["Communication Studies"],
+        "social-science": ["Anthropology","History","Political Science","Psychology"],
+        "english": ["English"],
+        "science": ["Anatomy and Physiology","Biology/Environmental Science","Geology/Oceanography"],
+        "BL&E": ["Accounting","Business Management", "Business Marketing/Entrepreneurship"],
+        "technology": ["Aviation","CAD Design and Engineering Tech","Natural Resources"],
+        "health-science": ["Practical Nursing","Physical Therapist Assistant"],
+        "trades": ["Automotive Technology","Manufacturing"],
+        "tran-studies": ["Health and Physical Education"]
+    }
     const divisionInfo = {
         "fine-arts": ["Music", "Paul Metevier", "Christie Gilliland", "Monica Bowen", "Liz Peterson", "Name", "no", "no", "notes"],
         "humanities": ["Communication Studies", "Katie Cunnion", "Jamie Fitzgerald", "Lisa Luengo", "Liz Peterson", "Name", "no", "no", "notes"],
@@ -43,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     divisionSelect.addEventListener("change", () => {
         const selected = divisionSelect.value;
-
         if (selected === "select") {
             divName.value = "";
             chair.value = "";
@@ -57,9 +69,12 @@ document.addEventListener("DOMContentLoaded", () => {
             currentInfo = [];
             save.style.display = "none";
             cancel.style.display = "none";
+
+            programContainer.style.display = "none";
             return;
         }
         
+        programDropdown.innerHTML = '<option value="">Select</option>';
         const info = divisionInfo[selected];
         if (info) {
             divName.value = info[0];
@@ -76,6 +91,16 @@ document.addEventListener("DOMContentLoaded", () => {
             currentInfo = [...info];
             save.style.display = "none";
             cancel.style.display = "none";
+
+            programContainer.style.display = "block";
+            const programItems = programInfo[selected];
+            programItems.forEach(item => {
+                const newOption = document.createElement("option");
+                newOption.value = item.toLowerCase();
+                newOption.textContent = item;
+                programDropdown.appendChild(newOption);
+            });
+
         }
     });
 
