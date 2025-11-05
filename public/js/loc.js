@@ -11,9 +11,9 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     const divisionSelect = document.getElementById("division");
+    const programSelect = document.getElementById("program");
     const programContainer = document.getElementById("program-container");
-    const programDropdown = document.getElementById("program-dropdown");
-    const divName = document.getElementById("div-name");
+    //const divName = document.getElementById("div-name");
     const chair = document.getElementById("chair");
     const dean = document.getElementById("dean");
     const loc = document.getElementById("loc");
@@ -40,6 +40,28 @@ document.addEventListener("DOMContentLoaded", () => {
         "tran-studies": ["Health and Physical Education"]
     }
     const divisionInfo = {
+        "Music":["Paul Metevier", "Christie Gilliland", "Monica Bowen", "Liz Peterson", "Name", "no", "no", "notes"],
+        "Communication Studies":["Katie Cunnion", "Jamie Fitzgerald", "Lisa Luengo", "Liz Peterson", "Name", "no", "no", "notes"],
+        "Anthropology":["Mark Thomason", "Christie Gilliland", "Joy Crawford", "Liz Peterson", "Name", "no", "no", "notes"],
+        "History":[],
+        "Political Science":[],
+        "Psychology":[],
+        "English":["Ian Sherman", "Jamie Fitzgerald", "Jake Frye", "Liz Peterson", "Name", "no", "no", "notes"],
+        "Anatomy and Physiology":["Katy Shaw and Danny Najera", "Miebeth Bustillo-Booth", "Nicole Feider", "Heather Lambert", "Name", "no", "no", "notes"],
+        "Biology/Environmental Science":[],
+        "Geology/Oceanography":[],
+        "Accounting":["Lea Ann Simpson", "Lea Ann Simpson", "Jane Swenson", "Mary Singer", "Name", "no", "no", "notes"],
+        "Business Management":[], 
+        "Business Marketing/Entrepreneurship":[],
+        "Aviation":["Michael Wood", "Lea Ann Simpson", "Josh Archer", "Angie Brenner", "Name", "no", "no", "notes"],
+        "CAD Design and Engineering Tech":[],
+        "Natural Resources":[],
+        "Practical Nursing":["Leslie Kessler", "Lionel Candido Flores", "Thom Jackson", "Liz Peterson", "Name", "no", "no", "notes"],
+        "Physical Therapist Assistant":[],
+        "Automotive Technology":["David Lewis", "Lea Ann Simpson", "Ben Orr", "Mary Singer", "Name", "no", "no", "notes"],
+        "Manufacturing":[],
+        "Health and Physical Education":["Paul Metevier", "Lionel Candido Flores", "Thom Jackson", "Liz Peterson", "Name", "no", "no", "notes"]
+        /*
         "fine-arts": ["Music", "Paul Metevier", "Christie Gilliland", "Monica Bowen", "Liz Peterson", "Name", "no", "no", "notes"],
         "humanities": ["Communication Studies", "Katie Cunnion", "Jamie Fitzgerald", "Lisa Luengo", "Liz Peterson", "Name", "no", "no", "notes"],
         "social-science": ["Anthropology", "Mark Thomason", "Christie Gilliland", "Joy Crawford", "Liz Peterson", "Name", "no", "no", "notes"],
@@ -50,14 +72,15 @@ document.addEventListener("DOMContentLoaded", () => {
         "health-science": ["Practical Nursing", "Leslie Kessler", "Lionel Candido Flores", "Thom Jackson", "Liz Peterson", "Name", "no", "no", "notes"],
         "trades": ["Automotive Technology", "David Lewis", "Lea Ann Simpson", "Ben Orr", "Mary Singer", "Name", "no", "no", "notes"],
         "tran-studies": ["Health and Physical Education", "Paul Metevier", "Lionel Candido Flores", "Thom Jackson", "Liz Peterson", "Name", "no", "no", "notes"]
+        */
     };
 
     let currentInfo = [];
 
-    divisionSelect.addEventListener("change", () => {
-        const selected = divisionSelect.value;
-        if (selected === "select") {
-            divName.value = "";
+    divisionSelect.addEventListener("change", () => { // if division dropdown has changed
+        const selected = divisionSelect.value; // division from dropdown
+        if (selected === "select") { // if no selected division
+            //divName.value = "";
             chair.value = "";
             dean.value = "";
             loc.value = "";
@@ -74,40 +97,46 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         
-        programDropdown.innerHTML = '<option value="">Select</option>';
-        const info = divisionInfo[selected];
-        if (info) {
-            divName.value = info[0];
-            chair.value = info[1];
-            dean.value = info[2];
-            loc.value = info[3];
-            pen.value = info[4];
-            payee.value = info[5];
-            paid.value = info[6];
-            submitted.value = info[7];
-            notes.value = info[8];
-            timestamp: new Date().toLocaleString();
-
-            currentInfo = [...info];
-            save.style.display = "none";
-            cancel.style.display = "none";
+        programSelect.innerHTML = '<option value="">Select</option>'; // if divsion selected, reset dropdown so fresh values can be added
 
             programContainer.style.display = "block";
             const programItems = programInfo[selected];
             programItems.forEach(item => {
                 const newOption = document.createElement("option");
-                newOption.value = item.toLowerCase();
+                newOption.value = item;
                 newOption.textContent = item;
-                programDropdown.appendChild(newOption);
+                programSelect.appendChild(newOption);
             });
+        /*
 
+        */
+    });
+    // if program dropdown has a selected program, add program info to text boxes
+    programSelect.addEventListener("change", () => {
+            const selected = programSelect.value;
+            if (selected !== "select"){
+            const info = divisionInfo[selected];
+            //divName.value = info[0];
+            chair.value = info[0];
+            dean.value = info[1];
+            loc.value = info[2];
+            pen.value = info[3];
+            payee.value = info[4];
+            paid.value = info[5];
+            submitted.value = info[6];
+            notes.value = info[7];
+            timestamp: new Date().toLocaleString();
+
+            currentInfo = [...info];
+            save.style.display = "none";
+            cancel.style.display = "none";
         }
     });
 
     // Check for input changes compared to currentInfo
     const checkChanges = () => {
         if (
-            divName.value !== currentInfo[0] || chair.value !== currentInfo[1] || dean.value !== currentInfo[2] || loc.value !== currentInfo[3] || pen.value !== currentInfo[4] || payee.value !== currentInfo[5] || paid.value !== currentInfo[6] || submitted.value !== currentInfo[7]
+            /*divName.value !== currentInfo[0] || */chair.value !== currentInfo[0] || dean.value !== currentInfo[1] || loc.value !== currentInfo[2] || pen.value !== currentInfo[3] || payee.value !== currentInfo[4] || paid.value !== currentInfo[5] || submitted.value !== currentInfo[6]
         ) {
             save.style.display = "block";
             cancel.style.display = "block";
@@ -118,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     //calls to check current info on input
-    [divName, chair, dean, loc, pen, payee, paid, submitted, notes].forEach(input => {
+    [/*divName, */chair, dean, loc, pen, payee, paid, submitted, notes].forEach(input => {
         input.addEventListener("input", checkChanges);
     });
 
