@@ -153,6 +153,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     save.addEventListener("click", (event) => {
 
+        //Fred's code: 
+
         event.preventDefault();
 
         const confirmed = confirm("Are you sure you want to save this submission?");
