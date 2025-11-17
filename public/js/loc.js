@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const divisionSelect = document.getElementById("division");
     const programSelect = document.getElementById("program");
     const programContainer = document.getElementById("program-container");
-    //const divName = document.getElementById("div-name");
+    const divName = document.getElementById("div-name");
     const chair = document.getElementById("chair");
     const dean = document.getElementById("dean");
     const loc = document.getElementById("loc");
@@ -164,20 +164,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 function rowSelect(program) {
+    
+    Object.keys(programInfo).forEach(key => {
+        if (programInfo[key].includes(program)) {
+            divName.value = key;
+        }
+    });
+    const info = divisionInfo[program];
+    // division
+    chair.value = info[0];
+    dean.value = info[1];
+    loc.value = info[2];
+    pen.value = info[3];
+    // program
+    payee.value = info[4];
+    paid.value = info[5];
+    submitted.value = info[6];
+    notes.value = info[7];
+
     const programFields = document.getElementById("program-fields");
     const divisionFields = document.getElementById("division-fields");
     programFields.style.display = "block";
     divisionFields.style.display = "block";
     save.style.display = "block";
     cancel.style.display = "block";
-
-    const info = divisionInfo[program];
-    chair.value = info[0];
-    dean.value = info[1];
-    loc.value = info[2];
-    pen.value = info[3];
-    payee.value = info[4];
-    paid.value = info[5];
-    submitted.value = info[6];
-    notes.value = info[7];
 }
