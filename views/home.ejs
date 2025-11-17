@@ -33,17 +33,20 @@
                 <option value="trades">Trades</option>
                 <option value="tran-studies">Transitional Studies</option>
             </select>
-            <div id="program-container">
+
+           <!-- <div id="program-container">
                 <legend>Program</legend>
                 <select id ="program">
                     <option value="">Select</option>
-                </select>
-            </div>
+                </select> 
+            </div> -->
+
         </fieldset>
         <fieldset id="info">
             <div class="program">
-                <label for="divName">Academic Program : <input type="text" id="divName" name="divName"> </label>
-                <span id="err-div" class ="error">Academic Program can't be blank</span>
+                <!-- CHanged academic program to division-->
+                <label for="divName">Division  : <input type="text" id="divName" name="divName"> </label>
+                <span id="err-div" class ="error">Division can't be blank</span>
             </div>
             <div class="chair">
                 <label for="chair">Chair : <input type="text" id="chair" name="chair"> </label>
@@ -57,10 +60,14 @@
                 <label for="loc">LOC Rep : <input type="text" id="loc" name="loc"> </label>
                 <span id="err-loc" class ="error">LOC can't be blank</span>
             </div>
+            
             <div class="pen">
                 <label for="pen">PEN Contact : <input type="text" id="pen" name="pen"> </label>
                 <span id="err-pen" class ="error">PEN can't be blank</span>
             </div>
+            <!-- removed other classes as requested-->
+             
+            <!--
             <div class="payee">
                 <label for="payee">Payee : <input type="text" id="payee" name="payee"></label>
             </div>
@@ -73,6 +80,7 @@
             <div class="notes">
                 <label for="notes">Notes : <input type="text" id="notes" name="notes"></label>
             </div>
+            -->
         </fieldset>
         <fieldset id="buttons">
             <button type="submit" id="save">Save</button>
