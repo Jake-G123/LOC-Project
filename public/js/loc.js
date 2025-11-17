@@ -8,7 +8,6 @@
     TODO: The division info needs the updated names and chair. If its blank just put the same name as above for the
     information given.
 */
-
 document.addEventListener("DOMContentLoaded", () => {
     const divisionSelect = document.getElementById("division");
     const programSelect = document.getElementById("program");
@@ -43,29 +42,23 @@ document.addEventListener("DOMContentLoaded", () => {
         "Music":["Paul Metevier", "Christie Gilliland", "Monica Bowen", "Liz Peterson", "Name", "no", "no", "notes"],
         "Communication Studies":["Katie Cunnion", "Jamie Fitzgerald", "Lisa Luengo", "Liz Peterson", "Name", "no", "no", "notes"],
         "Anthropology":["Mark Thomason", "Christie Gilliland", "Joy Crawford", "Liz Peterson", "Name", "no", "no", "notes"],
-        //added names from music, communication & anthropology
-        "History":["Paul Metevier", "Christie Gilliland", "Monica Bowen", "Liz Peterson", "Name", "no", "no", "notes"],
-        "Political Science":["Katie Cunnion", "Jamie Fitzgerald", "Lisa Luengo", "Liz Peterson", "Name", "no", "no", "notes"],
-        "Psychology":["Mark Thomason", "Christie Gilliland", "Joy Crawford", "Liz Peterson", "Name", "no", "no", "notes"],
+        "History":[],
+        "Political Science":[],
+        "Psychology":[],
         "English":["Ian Sherman", "Jamie Fitzgerald", "Jake Frye", "Liz Peterson", "Name", "no", "no", "notes"],
         "Anatomy and Physiology":["Katy Shaw and Danny Najera", "Miebeth Bustillo-Booth", "Nicole Feider", "Heather Lambert", "Name", "no", "no", "notes"],
-        //added names form English & Anatomy
-        "Biology/Environmental Science":["Ian Sherman", "Jamie Fitzgerald", "Jake Frye", "Liz Peterson", "Name", "no", "no", "notes"],
-        "Geology/Oceanography":["Katy Shaw and Danny Najera", "Miebeth Bustillo-Booth", "Nicole Feider", "Heather Lambert", "Name", "no", "no", "notes"],
+        "Biology/Environmental Science":[],
+        "Geology/Oceanography":[],
         "Accounting":["Lea Ann Simpson", "Lea Ann Simpson", "Jane Swenson", "Mary Singer", "Name", "no", "no", "notes"],
-        //added names from Geology & Accounting 
-        "Business Management":["Katy Shaw and Danny Najera", "Miebeth Bustillo-Booth", "Nicole Feider", "Heather Lambert", "Name", "no", "no", "notes"], 
-        "Business Marketing/Entrepreneurship":["Lea Ann Simpson", "Lea Ann Simpson", "Jane Swenson", "Mary Singer", "Name", "no", "no", "notes"],
+        "Business Management":[], 
+        "Business Marketing/Entrepreneurship":[],
         "Aviation":["Michael Wood", "Lea Ann Simpson", "Josh Archer", "Angie Brenner", "Name", "no", "no", "notes"],
-        //added names from Business Management & Business Marketing 
-        "CAD Design and Engineering Tech":["Katy Shaw and Danny Najera", "Miebeth Bustillo-Booth", "Nicole Feider", "Heather Lambert", "Name", "no", "no", "notes"],
-        "Natural Resources":["Lea Ann Simpson", "Lea Ann Simpson", "Jane Swenson", "Mary Singer", "Name", "no", "no", "notes"],
+        "CAD Design and Engineering Tech":[],
+        "Natural Resources":[],
         "Practical Nursing":["Leslie Kessler", "Lionel Candido Flores", "Thom Jackson", "Liz Peterson", "Name", "no", "no", "notes"],
-        //added names from CAD Design  
-        "Physical Therapist Assistant":["Katy Shaw and Danny Najera", "Miebeth Bustillo-Booth", "Nicole Feider", "Heather Lambert", "Name", "no", "no", "notes"],
+        "Physical Therapist Assistant":[],
         "Automotive Technology":["David Lewis", "Lea Ann Simpson", "Ben Orr", "Mary Singer", "Name", "no", "no", "notes"],
-        //added names from Physical Therapist A... & 
-        "Manufacturing":["Katy Shaw and Danny Najera", "Miebeth Bustillo-Booth", "Nicole Feider", "Heather Lambert", "Name", "no", "no", "notes"],
+        "Manufacturing":[],
         "Health and Physical Education":["Paul Metevier", "Lionel Candido Flores", "Thom Jackson", "Liz Peterson", "Name", "no", "no", "notes"]
         /*
         "fine-arts": ["Music", "Paul Metevier", "Christie Gilliland", "Monica Bowen", "Liz Peterson", "Name", "no", "no", "notes"],
@@ -170,6 +163,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-
+function rowSelect(program) {
+    alert(program);
+}
 
 
