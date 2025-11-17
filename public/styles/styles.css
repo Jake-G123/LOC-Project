@@ -106,7 +106,10 @@ legend {
     color: red;
     display: none;
 }
-button {
+#program-fields {
+    display: none;
+}
+#division-fields {
     display: none;
 }
 #cancel {
@@ -118,6 +121,8 @@ button {
     text-decoration: none;
     color: white;
     font-size: 1rem;
+
+    display: none;
 }
 #save {
     border: none;
@@ -128,6 +133,8 @@ button {
     text-decoration: none;
     color: white;
     font-size: 1rem;
+
+    display: none;
 }
 @media (max-width: 575px) {
     #info {
