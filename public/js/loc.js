@@ -162,6 +162,14 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Submission canceled.");
         }
     });
+    cancel.addEventListener('click', (event) => {
+        const programFields = document.getElementById("program-fields");
+        const divisionFields = document.getElementById("division-fields");
+        programFields.style.display = "none";
+        divisionFields.style.display = "none";
+        save.style.display = "none";
+        cancel.style.display = "none";
+    });
 });
 function rowSelect(program) {
     
@@ -177,6 +185,7 @@ function rowSelect(program) {
     loc.value = info[2];
     pen.value = info[3];
     // program
+    programName.value = program;
     payee.value = info[4];
     paid.value = info[5];
     submitted.value = info[6];
@@ -189,3 +198,11 @@ function rowSelect(program) {
     save.style.display = "block";
     cancel.style.display = "block";
 }
+document.getElementById('cancel').addEventListener('click', function() {
+    const programFields = document.getElementById("program-fields");
+    const divisionFields = document.getElementById("division-fields");
+    programFields.style.display = "none";
+    divisionFields.style.display = "none";
+    save.style.display = "none";
+    cancel.style.display = "none";
+});

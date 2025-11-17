@@ -48,7 +48,7 @@
                         <td><%= field.payee %></td>
                         <td><%= field.paid %></td>
                         <td><%= field.submitted %></td>
-                        <td><%= field.note %></td>
+                        <td><%= field.notes %></td>
                         <td><%= field.timestamp || "" %></td>
                         <td><button type="button" onclick="rowSelect('<%= field.program %>')">Edit</button></td>
                     </tr>
@@ -85,6 +85,10 @@
                 <label for="divName">Division : <input type="text" id="divName" name="divName"> </label>
                 <span id="err-div" class ="error">Division can't be blank</span>
             </div>
+            <div class="program">
+                <label for="programName">Program : <input type="text" id="programName" name="programName"> </label>
+                <span id="err-program" class ="error">program can't be blank</span>
+            </div>
             <div class="payee">
                 <label for="payee">Payee : <input type="text" id="payee" name="payee"></label>
             </div>
@@ -103,7 +107,6 @@
             <button type="submit" id="save">Save</button>
             <button type="reset" id="cancel">Cancel</button>
         </fieldset>
-
     </form>
 </body>
 </html>

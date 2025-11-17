@@ -18,8 +18,8 @@ const divisionInfo = {
         "Music":["Paul Metevier", "Christie Gilliland", "Monica Bowen", "Liz Peterson", "Name", "no", "no", "notes"],
         "Communication Studies":["Katie Cunnion", "Jamie Fitzgerald", "Lisa Luengo", "Liz Peterson", "Name", "no", "no", "notes"],
         "Anthropology":["Mark Thomason", "Christie Gilliland", "Joy Crawford", "Liz Peterson", "Name", "no", "no", "notes"],
-        "History":["", "", "", "", "", "5/2025", "No"],
-        "Political Science":["", "", "", "", "Lindsey = $500, Joy Crawfor = $500", "5/2025", "Yes"],
+        "History":[],
+        "Political Science":[],
         "Psychology":[],
         "English":["Ian Sherman", "Jamie Fitzgerald", "Jake Frye", "Liz Peterson", "Name", "no", "no", "notes"],
         "Anatomy and Physiology":["Katy Shaw and Danny Najera", "Miebeth Bustillo-Booth", "Nicole Feider", "Heather Lambert", "Name", "no", "no", "notes"],
@@ -80,7 +80,7 @@ const fields = Object.entries(divisionInfo).map(([key, info]) => ({
   payee: info[4],
   paid: info[5],
   submitted: info[6],
-  note: info[7],
+  notes: info[7],
   timestamp: new Date().toLocaleString()
 }));
 
@@ -102,8 +102,8 @@ app.get('/summary', (req, res) => {
 
 app.post('/submit-button', (req, res) => {
     const field = {
-        division: req.body.division,
-        program : req.body.program,
+        division: req.body.divName,
+        program : req.body.programName,
         chair : req.body.chair,
         dean : req.body.dean,
         loc : req.body.loc,
@@ -111,7 +111,7 @@ app.post('/submit-button', (req, res) => {
         payee : req.body.payee,
         paid : req.body.paid,
         submitted : req.body.submitted,
-        note : req.body.note,
+        notes : req.body.notes,
         timestamp: new Date().toLocaleString()
     }
     const existingIndex = fields.findIndex(item => item.division === field.division);
@@ -123,7 +123,8 @@ app.post('/submit-button', (req, res) => {
     }
     console.log(fields);
     res.render('summary', { fields, message: 'Submission saved' });
-})
+});
+
 
 //Start the server and listen on the specified port
 app.listen(PORT, () => {
