@@ -106,6 +106,14 @@ legend {
     color: red;
     display: none;
 }
+
+#program-fields {
+    display: none;
+}
+#division-fields {
+    display: none;
+}
+
 #cancel {
     border: none;
     background-color: grey;
@@ -115,6 +123,8 @@ legend {
     text-decoration: none;
     color: white;
     font-size: 1rem;
+
+    display: none;
 }
 #save {
     border: none;
@@ -125,6 +135,8 @@ legend {
     text-decoration: none;
     color: white;
     font-size: 1rem;
+
+    display: none;
 }
 @media (max-width: 575px) {
     #info {
