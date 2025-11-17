@@ -72,10 +72,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const submitted = document.getElementById("submitted");
     const notes = document.getElementById("notes");
 
-    const save = document.getElementById("save");
-    const cancel = document.getElementById("cancel");
+    const editBtn = document.getElementById("edit");
+    const saveBtn = document.getElementById("save");
+    const cancelBtn = document.getElementById("cancel");
+    
+     let currentInfo = [];
+    
 
-    let currentInfo = [];
 
     divisionSelect.addEventListener("change", () => { // if division dropdown has changed
         const selected = divisionSelect.value; // division from dropdown
@@ -130,6 +133,8 @@ document.addEventListener("DOMContentLoaded", () => {
             currentInfo = [...info];
             save.style.display = "none";
             cancel.style.display = "none";
+
+            
         }
     });
     // Check for input changes compared to currentInfo
