@@ -101,25 +101,42 @@ app.get('/summary', (req, res) => {
 });
 
 app.post('/submit-button', (req, res) => {
+    const oldDivision = req.body.oldDivName;
+    const oldProgram = req.body.oldProgramName;
     const field = {
         division: req.body.divName,
         program : req.body.programName,
         chair : req.body.chair,
         dean : req.body.dean,
         loc : req.body.loc,
-        contact : req.body.loc,
+        contact : req.body.contact,
         payee : req.body.payee,
         paid : req.body.paid,
         submitted : req.body.submitted,
         notes : req.body.notes,
         timestamp: new Date().toLocaleString()
     }
-    const existingIndex = fields.findIndex(item => item.division === field.division);
-
-    if (existingIndex !== -1) {
-        fields[existingIndex] = field;
-    } else {
-        fields.push(field);
+    if (oldDivision) {
+        fields.forEach(item => { // update the division level info for all with same division
+            if (oldDivision === item.division) {
+                item.division = field.division;
+                item.chair = field.chair;
+                item.dean = field.dean;
+                item.loc = field.loc;
+                item.contact = field.contact;
+            }
+        });
+    }
+    if (oldProgram) {
+        fields.forEach(item => { // update the division level info for all with same division
+            if (oldProgram === item.program) {
+                item.program = field.program;
+                item.payee = field.payee;
+                item.paid = field.paid;
+                item.submitted = field.submitted;
+                item.notes = field.notes;
+            }
+        });
     }
     console.log(fields);
     res.render('summary', { fields, message: 'Submission saved' });
