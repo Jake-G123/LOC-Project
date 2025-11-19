@@ -134,9 +134,11 @@ document.addEventListener("DOMContentLoaded", () => {
     programSelect.addEventListener("change", () => {
         const selectedProgram = programSelect.value;
         
-      
+    });
+    
     // --- Input Change Check (Simplified) ---
     const checkChanges = () => {
+        // Since currentInfo is not being properly set after program load, this is simplified:
         if (divisionSelect.value !== 'select') {
             saveBtn.style.display = "block";
             cancelBtn.style.display = "block";
@@ -165,4 +167,4 @@ document.addEventListener("DOMContentLoaded", () => {
         divisionSelect.value = "select";
         divisionSelect.dispatchEvent(new Event('change')); // Trigger the change listener
     });
-})
+});

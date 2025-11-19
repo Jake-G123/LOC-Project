@@ -1,84 +1,47 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById('loc-form');
+/*
+*
+* edit-fix.js
+* This is the bunk edit to how to make the edit buttons work properly
+*
+* NOTICE:
+* When we learn how to push/edit info on the server side we will make the code up date
+*
+*
+*/
 
-    // Function to populate the form when Edit is clicked
-    window.rowSelect = function(programName) {
-        const rows = document.querySelectorAll('#loc-table tbody tr');
-        rows.forEach(row => {
-            if (row.children[1].textContent === programName) {
-                document.getElementById('divName').value = row.children[0].textContent;
-                document.getElementById('oldDivName').value = row.children[0].textContent;
-                document.getElementById('chair').value = row.children[2].textContent;
-                document.getElementById('dean').value = row.children[3].textContent;
-                document.getElementById('loc').value = row.children[4].textContent;
-                document.getElementById('pen').value = row.children[5].textContent;
-                document.getElementById('programName').value = row.children[1].textContent;
-                document.getElementById('oldProgramName').value = row.children[1].textContent;
-                document.getElementById('payee').value = row.children[6].textContent;
-                document.getElementById('paid').value = row.children[7].textContent;
-                document.getElementById('submitted').value = row.children[8].textContent;
-                document.getElementById('notes').value = row.children[9].textContent;
-                // Scroll to form if needed
-                form.scrollIntoView({ behavior: "smooth" });
-            }
-        });
-    };
+window.rowSelect = function (programName) {
+    const rows = document.querySelectorAll('#loc-table tbody tr');
 
-    // Existing submit logic
-    if (!form) return;
+    rows.forEach(row => {
+        // Column order:
+        // 0=Division, 1=Chair, 2=Dean, 3=LOC Rep, 4=Contact,
+        // 5=Program, 6=Payee, 7=Paid, 8=Submitted, 9=Notes
 
-    form.addEventListener('submit', async function(e) {
-        e.preventDefault();
+        if (row.children[5].textContent === programName) {
 
-        const formData = {
-            oldProgramName: document.getElementById('oldProgramName').value,
-            programName: document.getElementById('programName').value,
-            oldDivName: document.getElementById('oldDivName').value,
-            divName: document.getElementById('divName').value,
-            chair: document.getElementById('chair').value,
-            dean: document.getElementById('dean').value,
-            loc: document.getElementById('loc').value,
-            pen: document.getElementById('pen').value,
-            payee: document.getElementById('payee').value,
-            paid: document.getElementById('paid').value,
-            submitted: document.getElementById('submitted').value,
-            notes: document.getElementById('notes').value
-        };
+            document.getElementById('divName').value = row.children[0].textContent;
+            document.getElementById('oldDivName').value = row.children[0].textContent;
 
-        try {
-            const response = await fetch('/update-program', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
+            document.getElementById('chair').value = row.children[1].textContent;
+            document.getElementById('dean').value = row.children[2].textContent;
+            document.getElementById('loc').value = row.children[3].textContent;
+            document.getElementById('pen').value = row.children[4].textContent;
 
-            const result = await response.json();
+            document.getElementById('programName').value = row.children[5].textContent;
+            document.getElementById('oldProgramName').value = row.children[5].textContent;
 
-            if (result.success) {
-                // Update the table row in-place
-                const rows = document.querySelectorAll('#loc-table tbody tr');
-                rows.forEach(row => {
-                    if (row.children[1].textContent === formData.oldProgramName) {
-                        row.children[0].textContent = formData.divName;
-                        row.children[1].textContent = formData.programName;
-                        row.children[2].textContent = formData.chair;
-                        row.children[3].textContent = formData.dean;
-                        row.children[4].textContent = formData.loc;
-                        row.children[5].textContent = formData.pen;
-                        row.children[6].textContent = formData.payee;
-                        row.children[7].textContent = formData.paid;
-                        row.children[8].textContent = formData.submitted;
-                        row.children[9].textContent = formData.notes;
-                        row.children[10].textContent = new Date().toLocaleString();
-                    }
-                });
-                alert('Program updated successfully!');
-            } else {
-                alert('Error updating program');
-            }
-        } catch (err) {
-            console.error(err);
-            alert('Server error');
+            document.getElementById('payee').value = row.children[6].textContent;
+            document.getElementById('paid').value = row.children[7].textContent;
+            document.getElementById('submitted').value = row.children[8].textContent;
+            document.getElementById('notes').value = row.children[9].textContent;
+
+            document.getElementById('division-fields').style.display = "block";
+            document.getElementById('program-fields').style.display = "block";
+
+            document.getElementById('save').style.display = "block";
+            document.getElementById('cancel').style.display = "block";
+
+            document.getElementById('loc-form').scrollIntoView({ behavior: "smooth" });
         }
     });
-});
+};
