@@ -165,5 +165,4 @@ document.addEventListener("DOMContentLoaded", () => {
         divisionSelect.value = "select";
         divisionSelect.dispatchEvent(new Event('change')); // Trigger the change listener
     });
-});
-
+})
