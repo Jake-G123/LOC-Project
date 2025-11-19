@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Outcomes Committee</title>
     <script src="js/error.js" defer></script>
-    <script src="js/loc.js"></script>
+    <script src="js/loc.js" defer></script>
     <link rel="stylesheet" href="styles/styles.css">
     
 
@@ -33,6 +33,14 @@
                 <option value="trades">Trades</option>
                 <option value="tran-studies">Transitional Studies</option>
             </select>
+            <fieldset id="program-container" style="display: none;">
+    <legend id="divLegend"></legend>
+
+    <select id="program" name="program">
+        <!-- programs will load here -->
+    </select>
+</fieldset>
+
 
            <!-- <div id="program-container">
                 <legend>Program</legend>
