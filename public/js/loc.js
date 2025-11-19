@@ -64,7 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const divisionSelect = document.getElementById("division");
     const programSelect = document.getElementById("program");
     const programContainer = document.getElementById("program-container");
-    const divName = document.getElementById("div-name");
+    const divLegend = document.getElementById("divLegend");
+    const oldDivName = document.getElementById("oldDivName"); // used while changing all the names of a division
+    const programLegend = document.getElementById("programLegend");
+    const oldProgramName = document.getElementById("oldProgramName");
     const chair = document.getElementById("chair");
     const dean = document.getElementById("dean");
     const loc = document.getElementById("loc");
@@ -101,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
             programContainer.style.display = "none";
             return;
         }
-        
+        oldDivName.value = divisionSelect.value;
         programSelect.innerHTML = '<option value="">Select</option>'; // if divsion selected, reset dropdown so fresh values can be added
 
             programContainer.style.display = "block";
@@ -183,6 +186,10 @@ function rowSelect(program) {
     Object.keys(programInfo).forEach(key => {
         if (programInfo[key].includes(program)) {
             divName.value = key;
+            oldDivName.value = key;
+            divLegend.innerHTML = key;
+            oldProgramName.value = program;
+            programLegend.innerHTML = program;
         }
     });
     const info = divisionInfo[program];

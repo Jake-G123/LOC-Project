@@ -60,7 +60,12 @@
     </script>
     <form id="loc-form" action="submit-button" method="post">
         <fieldset id="division-fields">
-            <legend>Division</legend>
+            <legend id="divLegend"></legend>
+            <div class="division">
+                <label for="divName">Name : <input type="text" id="divName" name="divName"> </label>
+                <span id="err-div" class ="error">Division can't be blank</span>
+            </div>
+            <input type="hidden" id="oldDivName" name="oldDivName" >
             <div class="chair">
                 <label for="chair">Chair : <input type="text" id="chair" name="chair"> </label>
                 <span id="err-chair" class ="error">Chair can't be blank</span>
@@ -80,15 +85,12 @@
         </fieldset>
 
         <fieldset id="program-fields">
-            <legend>Program</legend>
-            <div class="division">
-                <label for="divName">Division : <input type="text" id="divName" name="divName"> </label>
-                <span id="err-div" class ="error">Division can't be blank</span>
-            </div>
+            <legend id="programLegend">Program</legend>
             <div class="program">
-                <label for="programName">Program : <input type="text" id="programName" name="programName"> </label>
+                <label for="programName">Name : <input type="text" id="programName" name="programName"> </label>
                 <span id="err-program" class ="error">program can't be blank</span>
             </div>
+            <input type="hidden" id="oldProgramName" name="oldProgramName" >
             <div class="payee">
                 <label for="payee">Payee : <input type="text" id="payee" name="payee"></label>
             </div>
