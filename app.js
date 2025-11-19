@@ -1,5 +1,6 @@
 import express from 'express';
-//import {divisionInfo} from "public/js/loc.js";
+import mysql2 from 'mysql2';
+import dotenv from 'dotenv';
 
 //create an instance of an express application
 const app = express();
@@ -10,141 +11,87 @@ app.use(express.static('public'));
 //Define the port number where our server will listen 
 const PORT = 3004;
 
-const now = new Date();
+dotenv.config();
 
-//const fields = [];
+// Set up MySQL connection pool
+const pool = mysql2.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT
+}).promise();
 
-const divisionInfo = {
-    
-        "Music":["Paul Metevier", "Christie Gilliland", "Monica Bowen", "Liz Peterson", "Name", "no", "no", "notes"],
-        "Communication Studies":["Katie Cunnion", "Jamie Fitzgerald", "Lisa Luengo", "Liz Peterson", "Name", "no", "no", "notes"],
-        "Anthropology":["Mark Thomason", "Christie Gilliland", "Joy Crawford", "Liz Peterson", "Name", "no", "no", "notes"],
-        "History":[],
-        "Political Science":[],
-        "Psychology":[],
-        "English":["Ian Sherman", "Jamie Fitzgerald", "Jake Frye", "Liz Peterson", "Name", "no", "no", "notes"],
-        "Anatomy and Physiology":["Katy Shaw and Danny Najera", "Miebeth Bustillo-Booth", "Nicole Feider", "Heather Lambert", "Name", "no", "no", "notes"],
-        "Biology/Environmental Science":[],
-        "Geology/Oceanography":[],
-        "Accounting":["Lea Ann Simpson", "Lea Ann Simpson", "Jane Swenson", "Mary Singer", "Name", "no", "no", "notes"],
-        "Business Management":[], 
-        "Business Marketing/Entrepreneurship":[],
-        "Aviation":["Michael Wood", "Lea Ann Simpson", "Josh Archer", "Angie Brenner", "Name", "no", "no", "notes"],
-        "CAD Design and Engineering Tech":[],
-        "Natural Resources":[],
-        "Practical Nursing":["Leslie Kessler", "Lionel Candido Flores", "Thom Jackson", "Liz Peterson", "Name", "no", "no", "notes"],
-        "Physical Therapist Assistant":[],
-        "Automotive Technology":["David Lewis", "Lea Ann Simpson", "Ben Orr", "Mary Singer", "Name", "no", "no", "notes"],
-        "Manufacturing":[],
-        "Health and Physical Education":["Paul Metevier", "Lionel Candido Flores", "Thom Jackson", "Liz Peterson", "Name", "no", "no", "notes"]
-        /*
-        "fine-arts": ["Music", "Paul Metevier", "Christie Gilliland", "Monica Bowen", "Liz Peterson", "Name", "no", "no", "notes"],
-        "humanities": ["Communication Studies", "Katie Cunnion", "Jamie Fitzgerald", "Lisa Luengo", "Liz Peterson", "Name", "no", "no", "notes"],
-        "social-science": ["Anthropology", "Mark Thomason", "Christie Gilliland", "Joy Crawford", "Liz Peterson", "Name", "no", "no", "notes"],
-        "english": ["English", "Ian Sherman", "Jamie Fitzgerald", "Jake Frye", "Liz Peterson", "Name", "no", "no", "notes"],
-        "science": ["Anatomy and Physiology", "Katy Shaw and Danny Najera", "Miebeth Bustillo-Booth", "Nicole Feider", "Heather Lambert", "Name", "no", "no", "notes"],
-        "BL&E": ["Accounting", "Lea Ann Simpson", "Lea Ann Simpson", "Jane Swenson", "Mary Singer", "Name", "no", "no", "notes"],
-        "technology": ["Aviation", "Michael Wood", "Lea Ann Simpson", "Josh Archer", "Angie Brenner", "Name", "no", "no", "notes"],
-        "health-science": ["Practical Nursing", "Leslie Kessler", "Lionel Candido Flores", "Thom Jackson", "Liz Peterson", "Name", "no", "no", "notes"],
-        "trades": ["Automotive Technology", "David Lewis", "Lea Ann Simpson", "Ben Orr", "Mary Singer", "Name", "no", "no", "notes"],
-        "tran-studies": ["Health and Physical Education", "Paul Metevier", "Lionel Candido Flores", "Thom Jackson", "Liz Peterson", "Name", "no", "no", "notes"]
-        */
-    };
-    const programInfo = {
-        "fine-arts": ["Music"],
-        "humanities": ["Communication Studies"],
-        "social-science": ["Anthropology","History","Political Science","Psychology"],
-        "english": ["English"],
-        "science": ["Anatomy and Physiology","Biology/Environmental Science","Geology/Oceanography"],
-        "BL&E": ["Accounting","Business Management", "Business Marketing/Entrepreneurship"],
-        "technology": ["Aviation","CAD Design and Engineering Tech","Natural Resources"],
-        "health-science": ["Practical Nursing","Physical Therapist Assistant"],
-        "trades": ["Automotive Technology","Manufacturing"],
-        "tran-studies": ["Health and Physical Education"]
-    }
-    function getDivision(program, programInfo) {
-    for (const division in programInfo) {
-        if (programInfo[division].includes(program)) {
-            return division;
-        }
-    }
-    return "";
-    }
+// Set EJS as the view engine
+app.set('view engine', 'ejs');
 
-const fields = Object.entries(divisionInfo).map(([key, info]) => ({
-    division: getDivision(key, programInfo),
-  program: key,
-  chair: info[0],
-  dean: info[1],
-  loc: info[2],
-  contact: info[3],
-  payee: info[4],
-  paid: info[5],
-  submitted: info[6],
-  notes: info[7],
-  timestamp: new Date().toLocaleString()
-}));
+// Enable parsing of URL-encoded form data
+app.use(express.urlencoded({ extended: true }));
 
-app.set ('view engine', 'ejs');
-
-app.use (express.urlencoded({ extended: true }));
-
-//Define a default "route" ('/')
-//req: contains information about the incoming request
-//res: allows us to send back a response to the client
+// Default home page route
 app.get('/', (req, res) => {
-    //res.send('Welcome to ice cream!');
     res.render('home');
 });
 
-app.get('/summary', (req, res) => {
-    res.render('summary', {fields});
+app.get('/summary', async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT * FROM ProgramFullInfo');
+
+        res.render('summary', { fields: rows });
+
+    } catch (err) {
+        console.error('Error fetching programs:', err);
+        res.status(500).send('Error loading programs.');
+    }
 });
 
-app.post('/submit-button', (req, res) => {
-    const oldDivision = req.body.oldDivName;
-    const oldProgram = req.body.oldProgramName;
-    const field = {
-        division: req.body.divName,
-        program : req.body.programName,
-        chair : req.body.chair,
-        dean : req.body.dean,
-        loc : req.body.loc,
-        contact : req.body.contact,
-        payee : req.body.payee,
-        paid : req.body.paid,
-        submitted : req.body.submitted,
-        notes : req.body.notes,
-        timestamp: new Date().toLocaleString()
+app.post('/submit-button', async (req, res) => {
+    try {
+        // Get the program data from the form submission
+        const program = req.body;
+
+        // Optional: add a timestamp for tracking
+        program.timestamp = new Date();
+
+        console.log('New program submission:', program);
+
+        // Define an INSERT query for ProgramFullInfo
+        const sql = `
+            INSERT INTO ProgramFullInfo 
+            (ProgramName, DivisionName, DivisionChair, Dean, LOCRep, PENContact, Payees, HasBeenPaid, ReportSubmitted, Notes) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+
+        const params = [
+            program.programName,    // match your form input names
+            program.divName,
+            program.chair,
+            program.dean,
+            program.loc,
+            program.pen,
+            program.payee,
+            program.paid,
+            program.submitted,
+            program.notes
+        ];
+
+        const [result] = await pool.execute(sql, params);
+
+        console.log('Program inserted with ID:', result.insertId);
+
+        res.redirect('/summary');
+
+    } catch (err) {
+        console.error('Error inserting program:', err);
+
+        if (err.code === 'ER_DUP_ENTRY') {
+            res.status(409).send('A program with this name already exists.');
+        } else {
+            res.status(500).send('Sorry, there was an error processing your submission. Please try again.');
+        }
     }
-    if (oldDivision) {
-        fields.forEach(item => { // update the division level info for all with same division
-            if (oldDivision === item.division) {
-                item.division = field.division;
-                item.chair = field.chair;
-                item.dean = field.dean;
-                item.loc = field.loc;
-                item.contact = field.contact;
-            }
-        });
-    }
-    if (oldProgram) {
-        fields.forEach(item => { // update the division level info for all with same division
-            if (oldProgram === item.program) {
-                item.program = field.program;
-                item.payee = field.payee;
-                item.paid = field.paid;
-                item.submitted = field.submitted;
-                item.notes = field.notes;
-            }
-        });
-    }
-    console.log(fields);
-    res.render('summary', { fields, message: 'Submission saved' });
 });
 
-
-//Start the server and listen on the specified port
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
-}); 
+});

@@ -5,62 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Outcomes Committee</title>
     <script src="js/error.js" defer></script>
-    <script src="js/loc.js" defer></script>
+    <!--<script src="js/loc.js" defer></script>-->
     <link rel="stylesheet" href="styles/styles.css">
     
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="//cdn.datatables.net/2.3.4/js/dataTables.min.js"></script>
-
     <link rel="stylesheet" href="//cdn.datatables.net/2.3.4/css/dataTables.dataTables.min.css">
-
-    <!-- SERVER PORT IS 3004 : DIGITAL OCEAN YOUR IP : 3004 -->
 </head>
 <body class="summary">
 
+    <!-- Include header partial -->
     <%- include('partials/header') %>
-    
-        <table id = "loc-table" class = "display">
-            <thead>
+
+
+    <table id="loc-table" class="display">
+        <thead>
+            <tr>
+                <th>Division</th>
+                <th>Chair</th>
+                <th>Dean</th>
+                <th>LOC Rep</th>
+                <th>Contact</th>
+                <th>Program</th>
+                <th>Payee</th>
+                <th>Paid</th>
+                <th>Submitted</th>
+                <th>Notes</th>
+                <th>Last Updated</th>
+                <th></th> <!-- Edit button column -->
+            </tr>
+        </thead>
+        <tbody>
+            <% fields.forEach(field => { %>
                 <tr>
-                    <th>Division</th>
-                    <th>program</th>
-                    <th>Chair</th>
-                    <th>Dean</th>
-                    <th>LOC Rep</th>
-                    <th>Contact</th>
-                    <th>Payee</th>
-                    <th>Paid</th>
-                    <th>Submitted</th>
-                    <th>Notes</th>
-                    <th>Last Updated</th>
-                    <th></th> <!-- figure out how to get rid of order arrows on web page-->
+                    <td><%= field.DivisionName %></td>
+                    <td><%= field.DivisionChair %></td>
+                    <td><%= field.Dean %></td>
+                    <td><%= field.LOCRep %></td>
+                    <td><%= field.PENContact %></td>
+                    <td><%= field.ProgramName %></td>
+                    <td><%= field.Payees %></td>
+                    <td><%= field.HasBeenPaid %></td>
+                    <td><%= field.ReportSubmitted %></td>
+                    <td><%= field.Notes %></td>
+                    <td><%= field.timestamp ? field.timestamp.toLocaleString() : "" %></td>
+                    <td><button type="button" onclick="rowSelect('<%= field.ProgramName %>')">Edit</button></td>
                 </tr>
-            </thead>
-            <tbody>
-                <% fields.forEach(field => { %>
-                    <tr>
-                        <td><%= field.division %></td>
-                        <td><%= field.program %></td>
-                        <td><%= field.chair %></td>
-                        <td><%= field.dean %></td>
-                        <td><%= field.loc %></td>
-                        <td><%= field.contact %></td>
-                        <td><%= field.payee %></td>
-                        <td><%= field.paid %></td>
-                        <td><%= field.submitted %></td>
-                        <td><%= field.notes %></td>
-                        <td><%= field.timestamp || "" %></td>
-                        <td><button type="button" onclick="rowSelect('<%= field.program %>')">Edit</button></td>
-                    </tr>
-                <% }); %>
-            </tbody>
-        </table>
+            <% }) %>
+        </tbody>
+    </table>
+
     <script defer>
-        let table = new DataTable('#loc-table');
+        // Initialize DataTable
+        let table = new DataTable('#loc-table', {
+            "order": [],
+            "columnDefs": [{ "orderable": false, "targets": 11 }]
+        });
     </script>
+
     <form id="loc-form" action="submit-button" method="post">
         <fieldset id="division-fields">
-            <legend id="divLegend"></legend>
+            <legend id="divLegend">Division Info</legend>
             <div class="division">
                 <label for="divName">Name : <input type="text" id="divName" name="divName"> </label>
                 <span id="err-div" class ="error">Division can't be blank</span>
@@ -88,7 +93,7 @@
             <legend id="programLegend">Program</legend>
             <div class="program">
                 <label for="programName">Name : <input type="text" id="programName" name="programName"> </label>
-                <span id="err-program" class ="error">program can't be blank</span>
+                <span id="err-program" class ="error">Program can't be blank</span>
             </div>
             <input type="hidden" id="oldProgramName" name="oldProgramName" >
             <div class="payee">
