@@ -33,6 +33,25 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
+app.get('/db-test', async(req, res) => {
+
+
+    // try/catch block for error handling
+    try {
+        const [loc] = await pool.query('SELECT * FROM ProgramFullInfo');
+        // Send the orders data back to the browser as JSON
+        res.send(loc);
+    } catch(err) {
+        // If ANY error happened in the 'try' block, this code runs
+        // Log the error to the server console (for developers to see)
+        console.error('Database error:', err);
+
+        // Send an error response to the browser
+        // status(500) means "Internal Server Error"
+        res.status(500).send('Database error: ' + err.message);
+    }
+});
+
 app.get('/summary', async (req, res) => {
     try {
         const [rows] = await pool.query('SELECT * FROM ProgramFullInfo');

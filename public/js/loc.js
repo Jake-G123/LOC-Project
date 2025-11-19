@@ -132,39 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cancel.style.display = "none";
     });
 });
-function rowSelect(program) {
-    
-    Object.keys(programInfo).forEach(key => {
-        if (programInfo[key].includes(program)) {
-            divName.value = key;
-            oldDivName.value = key;
-            divLegend.innerHTML = key;
-            oldProgramName.value = program;
-            programLegend.innerHTML = program;
-        }
-    });
-    const info = divisionInfo[program];
-    // division
-    chair.value = info[0];
-    dean.value = info[1];
-    loc.value = info[2];
-    pen.value = info[3];
-    // program
-    programName.value = program;
-    payee.value = info[4];
-    paid.value = info[5];
-    submitted.value = info[6];
-    notes.value = info[7];
 
-    const programFields = document.getElementById("program-fields");
-    const divisionFields = document.getElementById("division-fields");
-    programFields.style.display = "block";
-    divisionFields.style.display = "block";
-    save.style.display = "block";
-    cancel.style.display = "block";
-
-    document.getElementById('loc-form').scrollIntoView({ behavior: 'smooth' }); // auto scrolls down to form
-}
 document.getElementById('cancel').addEventListener('click', function() {
     const programFields = document.getElementById("program-fields");
     const divisionFields = document.getElementById("division-fields");
