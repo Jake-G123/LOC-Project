@@ -1,3 +1,5 @@
+import programInfo from app.js;
+
 /*
     This code is where the data on the field is saved and to appear on click.
 

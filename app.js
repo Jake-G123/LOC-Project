@@ -15,6 +15,7 @@ const now = new Date();
 //const fields = [];
 
 const divisionInfo = {
+    
         "Music":["Paul Metevier", "Christie Gilliland", "Monica Bowen", "Liz Peterson", "Name", "no", "no", "notes"],
         "Communication Studies":["Katie Cunnion", "Jamie Fitzgerald", "Lisa Luengo", "Liz Peterson", "Name", "no", "no", "notes"],
         "Anthropology":["Mark Thomason", "Christie Gilliland", "Joy Crawford", "Liz Peterson", "Name", "no", "no", "notes"],
