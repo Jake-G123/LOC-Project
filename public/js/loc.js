@@ -211,6 +211,8 @@ function rowSelect(program) {
     divisionFields.style.display = "block";
     save.style.display = "block";
     cancel.style.display = "block";
+
+    document.getElementById('loc-form').scrollIntoView({ behavior: 'smooth' }); // auto scrolls down to form
 }
 document.getElementById('cancel').addEventListener('click', function() {
     const programFields = document.getElementById("program-fields");
