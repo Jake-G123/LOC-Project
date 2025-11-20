@@ -9,7 +9,7 @@ const app = express();
 app.use(express.static('public'));
 
 //Define the port number where our server will listen 
-const PORT = 3004;
+const PORT = 3010;
 
 dotenv.config();
 
