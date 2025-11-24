@@ -29,8 +29,22 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 
 // Default home page route
-app.get('/', (req, res) => {
-    res.render('home');
+app.get('/', async (req, res) => {
+    const [division] = await pool.query('SELECT * FROM division');
+    res.render('home', { division: division });
+});
+
+// API to get division info by name
+app.get('/division/:name', async (req, res) => {
+    try {
+        const divisionName = req.params.name;
+        const [rows] = await pool.query('SELECT * FROM division WHERE division_name = ?', [divisionName]);
+        if (rows.length === 0) return res.status(404).send('Division not found');
+        res.json(rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Database error');
+    }
 });
 
 app.get('/db-test', async(req, res) => {
@@ -38,7 +52,26 @@ app.get('/db-test', async(req, res) => {
 
     // try/catch block for error handling
     try {
-        const [loc] = await pool.query('SELECT * FROM ProgramFullInfo');
+        const [loc] = await pool.query('SELECT * FROM programfullinfo');
+        // Send the orders data back to the browser as JSON
+        res.send(loc);
+    } catch(err) {
+        // If ANY error happened in the 'try' block, this code runs
+        // Log the error to the server console (for developers to see)
+        console.error('Database error:', err);
+
+        // Send an error response to the browser
+        // status(500) means "Internal Server Error"
+        res.status(500).send('Database error: ' + err.message);
+    }
+});
+
+app.get('/db-test-division', async(req, res) => {
+
+
+    // try/catch block for error handling
+    try {
+        const [loc] = await pool.query('SELECT * FROM division');
         // Send the orders data back to the browser as JSON
         res.send(loc);
     } catch(err) {
@@ -54,7 +87,7 @@ app.get('/db-test', async(req, res) => {
 
 app.get('/summary', async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT * FROM ProgramFullInfo');
+        const [rows] = await pool.query('SELECT * FROM programfullinfo');
 
         res.render('summary', { fields: rows });
 
@@ -74,7 +107,6 @@ app.post('/submit-button', async (req, res) => {
 
         console.log('New program submission:', program);
 
-        // Define an INSERT query for ProgramFullInfo
         const sql = `
             INSERT INTO ProgramFullInfo 
             (ProgramName, DivisionName, DivisionChair, Dean, LOCRep, PENContact, Payees, HasBeenPaid, ReportSubmitted, Notes) 
@@ -82,7 +114,7 @@ app.post('/submit-button', async (req, res) => {
         `;
 
         const params = [
-            program.programName,    // match your form input names
+            program.programName,
             program.divName,
             program.chair,
             program.dean,

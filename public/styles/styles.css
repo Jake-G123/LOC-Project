@@ -2,14 +2,7 @@
     TODO: We can have a team meeting to talk about how we want it set up right now is very very minimal.
 */
 
-html {
-    height: 100%;
-    display: grid;
-    place-items: center;
-    background-color:green;
-    font-family: 'Segoe UI', Roboto, sans-serif;
-    min-width: 240px;
-}
+
 body {
     background-color: white;
     border-radius: .5rem;
@@ -52,13 +45,6 @@ a:hover {
     display:flex;
     justify-self: center; 
     border-style: none;
-    /*grid-template-columns: repeat(3,1fr);
-    grid-template-rows: repeat(3,1fr); 
-    column-gap: 10px; */
-    grid-template-areas: 
-    "program chair dean"
-    "loc pen payee"
-    "paid submitted notes";
 }
 .program {
     grid-area: program;
@@ -123,8 +109,6 @@ legend {
     text-decoration: none;
     color: white;
     font-size: 1rem;
-
-    display: none;
 }
 #save {
     border: none;
@@ -135,9 +119,83 @@ legend {
     text-decoration: none;
     color: white;
     font-size: 1rem;
+}
 
+/* Styling for the homes page on the information container*/
+
+/*#information-container {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+}*/
+
+.title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;   /* keeps h3 + image on same line */
+    width: 100%;
+}
+
+.title-row h3 {
+    margin: 0;
+}
+
+.details {
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+}
+
+.details.hidden {
+    max-height: 0;
+}
+
+.toggle-button {
+    width: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.toggle-button-edit {
+    width: 24px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.toggle-button.rotate {
+    transform: rotate(180deg);
+}
+
+fieldset {
+    border-radius: 5px;;
+}
+
+/****************************************************************/
+
+.edit-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.edit-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+input:disabled {
+    background-color: #f5f5f5;
+    color: #999;
+}
+
+.hidden {
     display: none;
 }
+
 @media (max-width: 575px) {
     #info {
         display:flex;
