@@ -8,6 +8,9 @@ const app = express();
 // Enable static file serving
 app.use(express.static('public'));
 
+// Set EJS as the view engine
+app.set('view engine', 'ejs');
+
 //Define the port number where our server will listen 
 const PORT = 3010;
 
@@ -21,9 +24,6 @@ const pool = mysql2.createPool({
     database: process.env.DB_NAME,
     port: process.env.DB_PORT
 }).promise();
-
-// Set EJS as the view engine
-app.set('view engine', 'ejs');
 
 // Enable parsing of URL-encoded form data
 app.use(express.urlencoded({ extended: true }));
