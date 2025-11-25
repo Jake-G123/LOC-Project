@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Outcomes Committee</title>
     <script src="js/error.js" defer></script>
-    <script src="js/slide.js"></script>
+    <script src="js/slide.js" defer></script>
     <script src="js/division-fields.js" defer></script>
-    <script src="js/div-edit-button.js"></script>
+    <script src="js/div-edit-button.js" defer></script>
     <link rel="stylesheet" href="styles/styles.css">
     
 
@@ -27,7 +27,7 @@
             <div class="details hidden">
                 <form id="loc-form" action="submit-division" method="post">
                     <fieldset id="division-dropdown">
-                    <legend>Division</legend>
+                    <label>Division</label>
                         <select id ="division" name="division">
                             <option value="Select">Select</option>
                             <option value="Fine Arts">Fine Arts</option>
@@ -44,6 +44,7 @@
                     </fieldset>
 
                     <fieldset id="info">
+                        <input type="hidden" id="division_id" name="division_id">
                         <div class="division-name">
                             <!-- CHanged academic program to division-->
                             <label for="divName">Division  : <input type="text" id="divName" name="divName"> </label>

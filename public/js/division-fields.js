@@ -1,33 +1,15 @@
-divisionSelect.addEventListener('change', function() {
-    const selectedDivision = this.value;
-    if (!selectedDivision) {
-        divNameInput.value = '';
-        chairInput.value = '';
-        deanInput.value = '';
-        locInput.value = '';
-        penInput.value = '';
-        return;
-    }
+document.getElementById("division").addEventListener("change", async function () {
+    const selected = this.value;
 
-    // Fetch division data from Express route
-    fetch(`/division/${encodeURIComponent(selectedDivision)}`)
-        .then(res => {
-            if (!res.ok) throw new Error('Division not found');
-            return res.json();
-        })
-        .then(data => {
-            divNameInput.value = data.division_name || '';
-            chairInput.value = data.chair || '';
-            deanInput.value = data.dean || '';
-            locInput.value = data.loc_rep || '';
-            penInput.value = data.pen || '';
-        })
-        .catch(err => {
-            console.error('Error fetching division data:', err);
-            divNameInput.value = '';
-            chairInput.value = '';
-            deanInput.value = '';
-            locInput.value = '';
-            penInput.value = '';
-        });
+    if (selected === "Select") return;
+
+    const res = await fetch(`/division-info?name=${encodeURIComponent(selected)}`);
+    const d = await res.json();
+
+    document.getElementById("division_id").value = d.id;
+    document.getElementById("divName").value = d.division_name;
+    document.getElementById("chair").value = d.chair;
+    document.getElementById("dean").value = d.dean;
+    document.getElementById("loc").value = d.loc_rep;
+    document.getElementById("pen").value = d.pen;
 });

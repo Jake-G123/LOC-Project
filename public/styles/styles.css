@@ -196,6 +196,93 @@ input:disabled {
     display: none;
 }
 
+/***********************************************/
+/* Edit Program Form */
+
+/* Container */
+#edit-form-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #fdfdfd;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: block;
+}
+
+/* Form grid */
+#edit-form fieldset {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* two columns */
+    gap: 20px;
+    border: none;
+    padding: 0;
+}
+
+/* Labels */
+#edit-form label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+/* Inputs and selects */
+#edit-form input,
+#edit-form select,
+#edit-form textarea {
+    margin-top: 6px;
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Textarea */
+#edit-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Buttons container */
+.form-buttons {
+    grid-column: span 2;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+#edit-form button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#edit-form button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+#edit-form button#cancel-edit {
+    background-color: #f44336;
+    color: white;
+}
+
+#edit-form button#cancel-edit:hover {
+    background-color: #e53935;
+}
+
+.hidden {
+    display: none;
+}
+
+/***********************************************************/
+
+
+
 @media (max-width: 575px) {
     #info {
         display:flex;

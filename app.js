@@ -34,19 +34,6 @@ app.get('/', async (req, res) => {
     res.render('home', { division: division });
 });
 
-// API to get division info by name
-app.get('/division/:name', async (req, res) => {
-    try {
-        const divisionName = req.params.name;
-        const [rows] = await pool.query('SELECT * FROM division WHERE division_name = ?', [divisionName]);
-        if (rows.length === 0) return res.status(404).send('Division not found');
-        res.json(rows[0]);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Database error');
-    }
-});
-
 app.get('/db-test', async(req, res) => {
 
 
@@ -64,6 +51,17 @@ app.get('/db-test', async(req, res) => {
         // status(500) means "Internal Server Error"
         res.status(500).send('Database error: ' + err.message);
     }
+});
+
+app.get('/division-info', async (req, res) => {
+    const divisionName = req.query.name;
+
+    const [rows] = await pool.query(
+        'SELECT * FROM division WHERE division_name = ?',
+        [divisionName]
+    );
+
+    res.send(rows[0]);
 });
 
 app.get('/db-test-division', async(req, res) => {
@@ -87,7 +85,7 @@ app.get('/db-test-division', async(req, res) => {
 
 app.get('/summary', async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT * FROM programfullinfo');
+        const [rows] = await pool.query('SELECT * FROM ProgramFullInfo ORDER BY DivisionName, ProgramName');
 
         res.render('summary', { fields: rows });
 
@@ -97,49 +95,72 @@ app.get('/summary', async (req, res) => {
     }
 });
 
+app.post('/submit-division', async (req, res) => {
+    const { division_id, divName, chair, dean, loc, pen } = req.body;
+
+    try {
+        const sql = `
+            UPDATE division 
+            SET division_name = ?, chair = ?, dean = ?, loc_rep = ?, pen = ? WHERE id = ?`;
+
+        await pool.query(sql, [
+            divName,
+            chair,
+            dean,
+            loc,
+            pen,
+            division_id
+        ]);
+
+        res.redirect('/');
+    } catch (err) {
+        console.error("Error updating division:", err);
+        res.status(500).send("Update failed.");
+    }
+});
+
 app.post('/submit-button', async (req, res) => {
     try {
-        // Get the program data from the form submission
         const program = req.body;
 
-        // Optional: add a timestamp for tracking
-        program.timestamp = new Date();
+        // Debug: see what was submitted
+        console.log('Form submission:', program);
 
-        console.log('New program submission:', program);
+        // Make sure ProgramID exists
+        if (!program.ProgramID) {
+            return res.status(400).send('Error: ProgramID is missing.');
+        }
+
+        // Default to null if fields are empty
+        const DivisionName = program.DivisionName || null;
+        const ProgramName = program.ProgramName || null;
+        const DivisionChair = program.DivisionChair || null;
+        const Dean = program.Dean || null;
+        const LOCRep = program.LOCRep || null;
+        const PENContact = program.PENContact || null;
+        const Payees = program.Payees || null;
+        const HasBeenPaid = program.HasBeenPaid === 'yes' ? 'yes' : 'no';
+        const ReportSubmitted = program.ReportSubmitted === 'yes' ? 'yes' : 'no';
+        const Notes = program.Notes || null;
+        const ProgramID = program.ProgramID;
 
         const sql = `
-            INSERT INTO ProgramFullInfo 
-            (ProgramName, DivisionName, DivisionChair, Dean, LOCRep, PENContact, Payees, HasBeenPaid, ReportSubmitted, Notes) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            UPDATE ProgramFullInfo
+            SET DivisionName = ?, ProgramName = ?, DivisionChair = ?, Dean = ?, LOCRep = ?, PENContact = ?, Payees = ?, HasBeenPaid = ?, ReportSubmitted = ?, Notes = ?
+            WHERE ProgramID = ?
         `;
 
-        const params = [
-            program.programName,
-            program.divName,
-            program.chair,
-            program.dean,
-            program.loc,
-            program.pen,
-            program.payee,
-            program.paid,
-            program.submitted,
-            program.notes
-        ];
+        const params = [DivisionName, ProgramName, DivisionChair, Dean, LOCRep, PENContact, Payees, HasBeenPaid, ReportSubmitted, Notes, ProgramID];
 
         const [result] = await pool.execute(sql, params);
 
-        console.log('Program inserted with ID:', result.insertId);
+        console.log(`Program with ID ${ProgramID} updated successfully.`);
 
         res.redirect('/summary');
 
     } catch (err) {
-        console.error('Error inserting program:', err);
-
-        if (err.code === 'ER_DUP_ENTRY') {
-            res.status(409).send('A program with this name already exists.');
-        } else {
-            res.status(500).send('Sorry, there was an error processing your submission. Please try again.');
-        }
+        console.error('Error updating program:', err);
+        res.status(500).send('Database update error: ' + err.message);
     }
 });
 

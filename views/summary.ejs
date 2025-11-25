@@ -7,6 +7,7 @@
     <script src="js/error.js" defer></script>
     <script src="js/edit-fix.js" defer></script>
     <link rel="stylesheet" href="styles/styles.css">
+    <script src="js/program-fields.js" defer></script>
     
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="//cdn.datatables.net/2.3.4/js/dataTables.min.js"></script>
@@ -22,11 +23,11 @@
         <thead>
             <tr>
                 <th>Division</th>
+                <th>Program</th>
                 <th>Chair</th>
                 <th>Dean</th>
                 <th>LOC Rep</th>
                 <th>Contact</th>
-                <th>Program</th>
                 <th>Payee</th>
                 <th>Paid</th>
                 <th>Submitted</th>
@@ -37,19 +38,19 @@
         </thead>
         <tbody>
             <% fields.forEach(field => { %>
-                <tr>
+                <tr data-programid="<%= field.ProgramID %>">
                     <td><%= field.DivisionName %></td>
+                    <td><%= field.ProgramName %></td>
                     <td><%= field.DivisionChair %></td>
                     <td><%= field.Dean %></td>
                     <td><%= field.LOCRep %></td>
                     <td><%= field.PENContact %></td>
-                    <td><%= field.ProgramName %></td>
                     <td><%= field.Payees %></td>
                     <td><%= field.HasBeenPaid %></td>
                     <td><%= field.ReportSubmitted %></td>
                     <td><%= field.Notes %></td>
                     <td><%= field.timestamp ? field.timestamp.toLocaleString() : "" %></td>
-                    <td><button type="button" onclick="rowSelect('<%= field.ProgramName %>')">Edit</button></td>
+                    <td><button type="button" onclick="rowSelect(<%= field.ProgramID %>)">Edit</button></td>
                 </tr>
             <% }) %>
         </tbody>
@@ -63,57 +64,32 @@
         });
     </script>
 
-    <form id="loc-form" action="submit-button" method="post">
-        <fieldset id="division-fields">
-            <legend id="divLegend">Division Info</legend>
-            <div class="division">
-                <label for="divName">Name : <input type="text" id="divName" name="divName"> </label>
-                <span id="err-div" class ="error">Division can't be blank</span>
-            </div>
-            <input type="hidden" id="oldDivName" name="oldDivName" >
-            <div class="chair">
-                <label for="chair">Chair : <input type="text" id="chair" name="chair"> </label>
-                <span id="err-chair" class ="error">Chair can't be blank</span>
-            </div>
-            <div class="dean">
-                <label for="dean">Dean : <input type="text" id="dean" name="dean"> </label>
-                <span id="err-dean" class ="error">Dean can't be blank</span>
-            </div>
-            <div class="loc">
-                <label for="loc">LOC Rep : <input type="text" id="loc" name="loc"> </label>
-                <span id="err-loc" class ="error">LOC can't be blank</span>
-            </div>
-            <div class="pen">
-                <label for="pen">PEN Contact : <input type="text" id="pen" name="pen"> </label>
-                <span id="err-pen" class ="error">PEN can't be blank</span>
-            </div>
-        </fieldset>
-
-        <fieldset id="program-fields">
-            <legend id="programLegend">Program</legend>
-            <div class="program">
-                <label for="programName">Name : <input type="text" id="programName" name="programName"> </label>
-                <span id="err-program" class ="error">Program can't be blank</span>
-            </div>
-            <input type="hidden" id="oldProgramName" name="oldProgramName" >
-            <div class="payee">
-                <label for="payee">Payee : <input type="text" id="payee" name="payee"></label>
-            </div>
-            <div class="paid">
-                <label for="paid">Paid : <input type="text" id="paid" name="paid"></label>
-            </div>
-            <div class="submitted">
-                <label for="submitted">Report Submitted : <input type="text" id="submitted" name="submitted"></label>
-            </div>
-            <div class="notes">
-                <label for="notes">Notes : <input type="text" id="notes" name="notes"></label>
-            </div>
-        </fieldset>
-
-        <fieldset id="buttons">
-            <button type="submit" id="save">Save</button>
-            <button type="reset" id="cancel">Cancel</button>
-        </fieldset>
+    <div id="edit-form-container" class="hidden">
+    <form id="edit-form" action="submit-button" method="post">
+        <input type="hidden" id="editProgramID" name="ProgramID">
+        <label>Division: <input type="text" id="editDivisionName" name="DivisionName"></label>
+        <label>Program: <input type="text" id="editProgramName" name="ProgramName"></label>
+        <label>Chair: <input type="text" id="editChair" name="DivisionChair"></label>
+        <label>Dean: <input type="text" id="editDean" name="Dean"></label>
+        <label>LOC Rep: <input type="text" id="editLOC" name="LOCRep"></label>
+        <label>PEN Contact: <input type="text" id="editPEN" name="PENContact"></label>
+        <label>Payees: <input type="text" id="editPayees" name="Payees"></label>
+        <label>Has Been Paid:
+        <select id="editPaid" name="HasBeenPaid">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        </label>
+        <label>Report Submitted:
+        <select id="editSubmitted" name="ReportSubmitted">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        </label>
+        <label>Notes: <textarea id="editNotes" name="Notes"></textarea></label>
+        <button type="submit">Update</button>
+        <button type="button" onclick="closeEditForm()">Cancel</button>
     </form>
-</body>
+    </div>
+    </body>
 </html>
