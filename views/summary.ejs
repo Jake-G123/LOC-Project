@@ -68,11 +68,17 @@
     <form id="edit-form" action="submit-button" method="post">
         <input type="hidden" id="editProgramID" name="ProgramID">
         <label>Division: <input type="text" id="editDivisionName" name="DivisionName"></label>
+        <span id="err-div" class ="error">Division can't be blank</span>
         <label>Program: <input type="text" id="editProgramName" name="ProgramName"></label>
+        <span id="err-program" class ="error">program can't be blank</span>
         <label>Chair: <input type="text" id="editChair" name="DivisionChair"></label>
+        <span id="err-chair" class ="error">Chair can't be blank</span>
         <label>Dean: <input type="text" id="editDean" name="Dean"></label>
+        <span id="err-dean" class ="error">Dean can't be blank</span>
         <label>LOC Rep: <input type="text" id="editLOC" name="LOCRep"></label>
+        <span id="err-loc" class ="error">LOC can't be blank</span>
         <label>PEN Contact: <input type="text" id="editPEN" name="PENContact"></label>
+        <span id="err-pen" class ="error">PEN can't be blank</span>
         <label>Payees: <input type="text" id="editPayees" name="Payees"></label>
         <label>Has Been Paid:
         <select id="editPaid" name="HasBeenPaid">
