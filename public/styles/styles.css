@@ -2,6 +2,9 @@
     TODO: We can have a team meeting to talk about how we want it set up right now is very very minimal.
 */
 
+html{
+    background-color: green;
+}
 
 body {
     background-color: white;
