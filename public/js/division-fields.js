@@ -7,9 +7,9 @@ document.getElementById("division").addEventListener("change", async function ()
     const d = await res.json();
 
     document.getElementById("division_id").value = d.id;
-    document.getElementById("divName").value = d.division_name;
-    document.getElementById("chair").value = d.chair;
-    document.getElementById("dean").value = d.dean;
-    document.getElementById("loc").value = d.loc_rep;
-    document.getElementById("pen").value = d.pen;
+    document.getElementById("divName").value = d.DivisionName;
+    document.getElementById("chair").value = d.DivisionChair;
+    document.getElementById("dean").value = d.Dean;
+    document.getElementById("loc").value = d.LOCRep;
+    document.getElementById("pen").value = d.PENContact;
 });

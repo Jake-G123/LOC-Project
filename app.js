@@ -39,7 +39,7 @@ app.get('/db-test', async(req, res) => {
 
     // try/catch block for error handling
     try {
-        const [loc] = await pool.query('SELECT * FROM programfullinfo');
+        const [loc] = await pool.query('SELECT * FROM ProgramFullInfo');
         // Send the orders data back to the browser as JSON
         res.send(loc);
     } catch(err) {
@@ -57,7 +57,7 @@ app.get('/division-info', async (req, res) => {
     const divisionName = req.query.name;
 
     const [rows] = await pool.query(
-        'SELECT * FROM division WHERE division_name = ?',
+        'SELECT DivisionName, DivisionChair, Dean, LOCRep, PENContact FROM ProgramFullInfo WHERE divisionName = ?',
         [divisionName]
     );
 
@@ -100,8 +100,8 @@ app.post('/submit-division', async (req, res) => {
 
     try {
         const sql = `
-            UPDATE division 
-            SET division_name = ?, chair = ?, dean = ?, loc_rep = ?, pen = ? WHERE id = ?`;
+            UPDATE ProgramFullInfo 
+            SET DivisionName = ?, DivisionChair = ?, Dean = ?, LOCRep = ?, PENContact = ? WHERE DivisionName = ?`;
 
         await pool.query(sql, [
             divName,
@@ -109,7 +109,7 @@ app.post('/submit-division', async (req, res) => {
             dean,
             loc,
             pen,
-            division_id
+            divName
         ]);
 
         res.redirect('/');
