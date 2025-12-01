@@ -271,6 +271,14 @@ legend {
     font-size: 1rem;
 }
 
+/***********************************************/
+
+/*The border of the fieldset that has yes for deadline*/
+.deadline-upcoming-yes {
+    border: 2px solid yellow;
+    padding: 1rem;
+}
+
 /* Styling for the homes page on the information container*/
 
 /*#information-container {

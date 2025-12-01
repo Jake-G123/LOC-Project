@@ -20,7 +20,7 @@
     <div class="edit-division-container">
 
         <% division.forEach(d => { %>
-        <fieldset>
+        <fieldset class="<%= d.DeadlineUpcoming === 'Yes' ? 'deadline-upcoming-yes' : '' %>">
             <div class="title-row">
                 <h3><%= d.DivisionName %></h3>
                 <img src="images/angle_up.png" alt="Toggle Details" class="toggle-button">
@@ -57,6 +57,14 @@
                     <div class="pen">
                         <label for="pen-<%= d.ProgramID %>">PEN Contact: 
                             <input type="text" id="pen-<%= d.ProgramID %>" name="pen" value="<%= d.PENContact %>">
+                        </label>
+                    </div>
+
+                    <div class="deadline-upcoming">
+                        <label for="deadline-<%= d.ProgramID %>"> Deadline Upcoming:
+                            <input type="hidden" name="deadlineUpcoming" value="No">
+                            <input type="checkbox" id="deadline-<%= d.ProgramID %>" name="deadlineUpcoming" value="Yes" 
+                                <%= d.DeadlineUpcoming === 'Yes' ? 'checked' : '' %>>
                         </label>
                     </div>
 

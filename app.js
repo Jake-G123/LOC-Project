@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 // Default home page route
 app.get('/', async (req, res) => {
     const [division] = await pool.query(`
-        SELECT DivisionName, MIN(DivisionChair) AS DivisionChair, MIN(Dean) AS Dean, MIN(LOCRep) AS LOCRep, MIN(PENContact) AS PENContact
+        SELECT DivisionName, MIN(DivisionChair) AS DivisionChair, MIN(Dean) AS Dean, MIN(LOCRep) AS LOCRep, MIN(PENContact) AS PENContact,  MIN(DeadlineUpcoming) AS DeadlineUpcoming
         FROM ProgramFullInfo
         GROUP BY DivisionName
     `);
@@ -61,7 +61,9 @@ app.get('/division-info', async (req, res) => {
     const divisionName = req.query.name;
 
     const [rows] = await pool.query(
-        'SELECT DivisionName, DivisionChair, Dean, LOCRep, PENContact FROM ProgramFullInfo WHERE divisionName = ?',
+        `SELECT DivisionName, DivisionChair, Dean, LOCRep, PENContact, MAX(DeadlineUpcoming) AS DeadlineUpcoming
+         FROM ProgramFullInfo 
+         WHERE DivisionName = ?`,
         [divisionName]
     );
 
@@ -100,12 +102,27 @@ app.get('/summary', async (req, res) => {
 });
 
 app.post('/submit-division', async (req, res) => {
-    const { division_id, divName, chair, dean, loc, pen } = req.body;
+    const { divName, chair, dean, loc, pen } = req.body;
+
+    // Ensure deadlineUpcoming is a single string
+    let deadlineUpcomingValue;
+    if (Array.isArray(req.body.deadlineUpcoming)) {
+        deadlineUpcomingValue = req.body.deadlineUpcoming.pop();
+    } else {
+        deadlineUpcomingValue = req.body.deadlineUpcoming;
+    }
 
     try {
         const sql = `
-            UPDATE ProgramFullInfo 
-            SET DivisionName = ?, DivisionChair = ?, Dean = ?, LOCRep = ?, PENContact = ? WHERE DivisionName = ?`;
+            UPDATE ProgramFullInfo
+            SET DivisionName = ?,
+                DivisionChair = ?,
+                Dean = ?,
+                LOCRep = ?,
+                PENContact = ?,
+                DeadlineUpcoming = ?
+            WHERE DivisionName = ?
+        `;
 
         await pool.query(sql, [
             divName,
@@ -113,6 +130,7 @@ app.post('/submit-division', async (req, res) => {
             dean,
             loc,
             pen,
+            deadlineUpcomingValue,
             divName
         ]);
 
