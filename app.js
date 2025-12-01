@@ -30,8 +30,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // Default home page route
 app.get('/', async (req, res) => {
-    const [division] = await pool.query('SELECT * FROM division');
-    res.render('home', { division: division });
+    const [division] = await pool.query(`
+        SELECT DivisionName, MIN(DivisionChair) AS DivisionChair, MIN(Dean) AS Dean, MIN(LOCRep) AS LOCRep, MIN(PENContact) AS PENContact
+        FROM ProgramFullInfo
+        GROUP BY DivisionName
+    `);
+    res.render('home', { division });
 });
 
 app.get('/db-test', async(req, res) => {

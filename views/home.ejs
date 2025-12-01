@@ -14,21 +14,72 @@
     <!-- SERVER PORT IS 3004 : DIGITAL OCEAN YOUR IP : 3004 -->
 </head>
 <body>
-
-    <div class="grc-logo">
-    <img src="images/GRClogo.png" alt="GRC LOGO">
-</div>
-    
     <!-- For later -->
     <%- include('partials/header') %>
     
-    <div class ="edit-division-container">
+    <div class="edit-division-container">
+
+        <% division.forEach(d => { %>
+        <fieldset>
+            <div class="title-row">
+                <h3><%= d.DivisionName %></h3>
+                <img src="images/angle_up.png" alt="Toggle Details" class="toggle-button">
+            </div>
+
+            <div class="details hidden">
+                <form action="/submit-division" method="POST">
+                    <input type="hidden" name="division_id" value="<%= d.ProgramID %>">
+
+                    <div class="division-name">
+                        <label for="divName-<%= d.ProgramID %>">Division: 
+                            <input type="text" id="divName-<%= d.ProgramID %>" name="divName" value="<%= d.DivisionName %>">
+                        </label>
+                    </div>
+
+                    <div class="chair">
+                        <label for="chair-<%= d.ProgramID %>">Chair: 
+                            <input type="text" id="chair-<%= d.ProgramID %>" name="chair" value="<%= d.DivisionChair %>">
+                        </label>
+                    </div>
+
+                    <div class="dean">
+                        <label for="dean-<%= d.ProgramID %>">Dean: 
+                            <input type="text" id="dean-<%= d.ProgramID %>" name="dean" value="<%= d.Dean %>">
+                        </label>
+                    </div>
+
+                    <div class="loc">
+                        <label for="loc-<%= d.ProgramID %>">LOC Rep: 
+                            <input type="text" id="loc-<%= d.ProgramID %>" name="loc" value="<%= d.LOCRep %>">
+                        </label>
+                    </div>
+
+                    <div class="pen">
+                        <label for="pen-<%= d.ProgramID %>">PEN Contact: 
+                            <input type="text" id="pen-<%= d.ProgramID %>" name="pen" value="<%= d.PENContact %>">
+                        </label>
+                    </div>
+
+                    <div class="buttons">
+                        <button type="submit" class="save-btn">Save</button>
+                        <button type="reset" class="cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+        <% }) %>
+
+    </div>
+
+
+
+    <!--<div class ="edit-division-container">
         <fieldset>
             <div class="title-row">
                 <h3>Edit</h3>
                 <img src="images/edit.png" alt="Toggle Details" class="toggle-button-edit">
             </div>
-            <!-- Form -->
+
             <div class="details hidden">
                 <form id="loc-form" action="submit-division" method="post">
                     <fieldset id="division-dropdown">
@@ -51,7 +102,6 @@
                     <fieldset id="info">
                         <input type="hidden" id="division_id" name="division_id">
                         <div class="division-name">
-                            <!-- CHanged academic program to division-->
                             <label for="divName">Division  : <input type="text" id="divName" name="divName"> </label>
                             <span id="err-div" class ="error">Division can't be blank</span>
                         </div>
@@ -81,32 +131,26 @@
             </div>
         </fieldset>
     </div>
-    <!-- THIS IS NOW IN THE WORKS 11/23/2025
-
-    Contemplating putting the table here so we can see what it looks like now with the table given.
-        
-    TODO: team meeting this part is totally optional right now. 
-    -->
     
     <div id="information-container">
-    <% division.forEach(d => { %>
+    </% division.forEach(d => { %>
     <fieldset>
         <div class="title-row">
-            <h3><%= d.division_name %></h3>
+            <h3></%= d.DivisionName %></h3>
             <img src="images/angle_up.png" alt="Toggle Details" class="toggle-button">
         </div>
 
         <div class="details hidden">
             <ol>
-                <li>Chair: <%= d.chair %></li>
-                <li>Dean: <%= d.dean %></li>
-                <li>LOC Rep: <%= d.loc_rep %></li>
-                <li>PEN Contact: <%= d.pen %></li>
+                <li>Chair: </%= d.DivisionChair %></li>
+                <li>Dean: </%= d.Dean %></li>
+                <li>LOC Rep: </%= d.LOCRep %></li>
+                <li>PEN Contact: </%= d.PENContact %></li>
             </ol>
         </div>
     </fieldset>
-    <% }) %>
-</div>
+    </% }) %>
+</div>-->
 </body>
 <footer class="site-footer">
     <p>© <%= new Date().getFullYear() %> Green River College — All Rights Reserved</p>
