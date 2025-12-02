@@ -275,8 +275,274 @@ legend {
 
 /*The border of the fieldset that has yes for deadline*/
 .deadline-upcoming-yes {
-    border: 2px solid yellow;
-    padding: 1rem;
+    border: 3px solid yellow;
+}
+
+/***********************************************/
+/* Division form container*/
+/* when hidden */
+.hidden {
+    display: none;
+}
+
+.toggle-btn {
+    background-color: orange;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    margin-bottom: 15px;
+}
+
+.toggle-btn:hover {
+    background-color: green;
+    transform: translateY(-2px);
+}
+
+/* add division form container */
+.create-btn {
+    background-color: green;
+    width: 100%;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.create-btn:hover {
+    background-color: darkgreen;
+    transform: translateY(-2px);
+}
+
+.add-division-container {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 25px 30px;
+    margin: 20px auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-division-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+}
+
+.add-division-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.add-division-container form div {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-division-container label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.add-division-container input[type="text"],
+.add-division-container input[type="checkbox"] {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-division-container input[type="text"]:focus {
+    border-color: green;
+    box-shadow: 0 0 5px rgba(241, 196, 15, 0.3);
+}
+
+.add-division-container input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.add-division-container .buttons {
+    text-align: center;
+}
+
+.add-division-container button {
+    background-color: green;
+    color: #fff;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.add-division-container button:hover {
+    background-color: #d4ac0d;
+    transform: translateY(-2px);
+}
+
+.add-division-container button:active {
+    transform: translateY(0);
+}
+
+/************************************************/
+
+/* header drop down styling */
+.site-header {
+    background-color: #1e2a38;
+    color: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Nav Links */
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.header-nav a:hover {
+    background-color: #2a3a50;
+}
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #1e2a38;
+    color: #fff;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.dropbtn:hover {
+    background-color: #2a3a50;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #2a3a50;
+    min-width: 180px;
+    padding: 10px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    border-radius: 6px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.clone-btn {
+    width: 100%;
+    background-color: #ffc107;
+    color: #1e2a38;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.clone-btn:hover {
+    background-color: #e0a800;
+}
+
+/* Year Selector */
+.year-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.year-selector select {
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: none;
+    font-size: 1rem;
+}
+
+/***********************************************/
+
+/* removing division form container */
+.remove-btn {
+    background-color: #c0392b;
+}
+
+.remove-btn:hover {
+    background-color: #e74c3c;
+}
+
+.delete-btn {
+    background-color: #c0392b;
+    width: 100%;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.delete-btn:hover {
+    background-color: #e74c3c;
+    transform: translateY(-2px);
 }
 
 /* Styling for the homes page on the information container*/
@@ -510,4 +776,47 @@ body {
         flex-wrap: wrap;
         gap: 15px;
     }
+}
+
+.table-container {
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+#loc-table th,
+#loc-table td {
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#loc-table thead th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+#loc-table tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+#loc-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.dataTables_wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+#loc-table button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#loc-table button:hover {
+    background-color: #45a049;
 }

@@ -28,55 +28,50 @@
 
             <div class="details hidden">
                 <form action="/submit-division" method="POST">
-                    <input type="hidden" name="division_id" value="<%= d.ProgramID %>">
+    <input type="hidden" name="academicYear" value="<%= selectedYear %>">
 
-                    <div class="division-name">
-                        <label for="divName-<%= d.ProgramID %>">Division: 
-                            <input type="text" id="divName-<%= d.ProgramID %>" name="divName" value="<%= d.DivisionName %>">
-                        </label>
-                    </div>
+    <div class="division-name">
+        <label>Division: 
+            <input type="text" name="divName" value="<%= d.DivisionName %>">
+        </label>
+    </div>
 
-                    <div class="chair">
-                        <label for="chair-<%= d.ProgramID %>">Chair: 
-                            <input type="text" id="chair-<%= d.ProgramID %>" name="chair" value="<%= d.DivisionChair %>">
-                        </label>
-                    </div>
+    <div class="chair">
+        <label>Chair: 
+            <input type="text" name="chair" value="<%= d.DivisionChair %>">
+        </label>
+    </div>
 
-                    <div class="dean">
-                        <label for="dean-<%= d.ProgramID %>">Dean: 
-                            <input type="text" id="dean-<%= d.ProgramID %>" name="dean" value="<%= d.Dean %>">
-                        </label>
-                    </div>
+    <div class="dean">
+        <label>Dean: 
+            <input type="text" name="dean" value="<%= d.Dean %>">
+        </label>
+    </div>
 
-                    <div class="loc">
-                        <label for="loc-<%= d.ProgramID %>">LOC Rep: 
-                            <input type="text" id="loc-<%= d.ProgramID %>" name="loc" value="<%= d.LOCRep %>">
-                        </label>
-                    </div>
+    <div class="loc">
+        <label>LOC Rep: 
+            <input type="text" name="loc" value="<%= d.LOCRep %>">
+        </label>
+    </div>
 
-                    <div class="pen">
-                        <label for="pen-<%= d.ProgramID %>">PEN Contact: 
-                            <input type="text" id="pen-<%= d.ProgramID %>" name="pen" value="<%= d.PENContact %>">
-                        </label>
-                    </div>
+    <div class="pen">
+        <label>PEN Contact: 
+            <input type="text" name="pen" value="<%= d.PENContact %>">
+        </label>
+    </div>
 
-                    <div class="deadline-upcoming">
-                        <label for="deadline-<%= d.ProgramID %>"> Deadline Upcoming:
-                            <input type="hidden" name="deadlineUpcoming" value="No">
-                            <input type="checkbox" id="deadline-<%= d.ProgramID %>" name="deadlineUpcoming" value="Yes" 
-                                <%= d.DeadlineUpcoming === 'Yes' ? 'checked' : '' %>>
-                        </label>
-                    </div>
+    <label>Deadline Upcoming:
+        <input type="checkbox" name="deadlineUpcoming" value="Yes" <%= d.DeadlineUpcoming === 'Yes' ? 'checked' : '' %>>
+    </label>
 
-                    <div class="buttons">
-                        <button type="submit" class="save-btn">Save</button>
-                        <button type="reset" class="cancel-btn">Cancel</button>
-                    </div>
-                </form>
+    <div class="buttons">
+        <button type="submit" class="save-btn">Save</button>
+        <button type="reset" class="cancel-btn">Cancel</button>
+    </div>
+</form>
             </div>
         </fieldset>
         <% }) %>
-
     </div>
 
 

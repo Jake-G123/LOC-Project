@@ -30,12 +30,30 @@ app.use(express.urlencoded({ extended: true }));
 
 // Default home page route
 app.get('/', async (req, res) => {
+    const selectedYear = req.query.year || new Date().getFullYear();
+
     const [division] = await pool.query(`
-        SELECT DivisionName, MIN(DivisionChair) AS DivisionChair, MIN(Dean) AS Dean, MIN(LOCRep) AS LOCRep, MIN(PENContact) AS PENContact,  MIN(DeadlineUpcoming) AS DeadlineUpcoming
+        SELECT 
+            DivisionName,
+            MIN(DivisionChair) AS DivisionChair,
+            MIN(Dean) AS Dean,
+            MIN(LOCRep) AS LOCRep,
+            MIN(PENContact) AS PENContact,
+            MIN(DeadlineUpcoming) AS DeadlineUpcoming,
+            MIN(ProgramID) AS ProgramID
         FROM ProgramFullInfo
+        WHERE AcademicYear = ?
         GROUP BY DivisionName
-    `);
-    res.render('home', { division });
+    `, [selectedYear]);
+
+    // Move divisions with DeadlineUpcoming = 'Yes' to top
+    division.sort((a, b) => {
+        if (a.DeadlineUpcoming === 'Yes' && b.DeadlineUpcoming === 'No') return -1;
+        if (a.DeadlineUpcoming === 'No' && b.DeadlineUpcoming === 'Yes') return 1;
+        return 0;
+    });
+
+    res.render('home', { division, selectedYear });
 });
 
 app.get('/db-test', async(req, res) => {
@@ -91,37 +109,98 @@ app.get('/db-test-division', async(req, res) => {
 
 app.get('/summary', async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT * FROM ProgramFullInfo ORDER BY DivisionName, ProgramName');
+        const selectedYear = req.query.year || new Date().getFullYear();
 
-        res.render('summary', { fields: rows });
+        const [rows] = await pool.query(
+            'SELECT * FROM ProgramFullInfo WHERE AcademicYear = ?',
+            [selectedYear]
+        );
 
+        res.render('summary', { fields: rows, selectedYear });
     } catch (err) {
         console.error('Error fetching programs:', err);
         res.status(500).send('Error loading programs.');
     }
 });
 
-app.post('/submit-division', async (req, res) => {
-    const { divName, chair, dean, loc, pen } = req.body;
+app.get('/summary-data', async (req, res) => {
+  const year = req.query.year;
+  const [fields] = await pool.execute(
+    `SELECT * FROM ProgramFullInfo WHERE AcademicYear = ?`,
+    [year]
+  );
+  res.json({ fields });
+});
 
-    // Ensure deadlineUpcoming is a single string
-    let deadlineUpcomingValue;
-    if (Array.isArray(req.body.deadlineUpcoming)) {
-        deadlineUpcomingValue = req.body.deadlineUpcoming.pop();
-    } else {
-        deadlineUpcomingValue = req.body.deadlineUpcoming;
+app.post('/clone-year', async (req, res) => {
+    const currentYear = parseInt(req.body.year);
+    const nextYear = currentYear + 1;
+
+    try {
+        // Check if the next year already has data
+        const [exists] = await pool.query(
+            'SELECT COUNT(*) AS count FROM ProgramFullInfo WHERE AcademicYear = ?',
+            [nextYear]
+        );
+
+        if (exists[0].count > 0) {
+            // Already cloned, send back with a message or just redirect
+            return res.redirect('/?year=' + nextYear);
+        }
+
+        // Grab all rows from the current year
+        const [rows] = await pool.query(
+            `SELECT DivisionName, ProgramName, DivisionChair, Dean, LOCRep, PENContact, Payees, HasBeenPaid, ReportSubmitted, Notes, DeadlineUpcoming
+             FROM ProgramFullInfo
+             WHERE AcademicYear = ?`,
+            [currentYear]
+        );
+
+        if (rows.length === 0) {
+            return res.redirect('/?year=' + currentYear); // Nothing to clone
+        }
+
+        // Prepare insert for next year
+        const insertValues = rows.map(row => [
+            row.DivisionName,
+            row.ProgramName,
+            row.DivisionChair,
+            row.Dean,
+            row.LOCRep,
+            row.PENContact,
+            row.Payees,
+            row.HasBeenPaid,
+            row.ReportSubmitted,
+            row.Notes,
+            nextYear,
+            row.DeadlineUpcoming
+        ]);
+
+        const sql = `
+            INSERT INTO ProgramFullInfo 
+            (DivisionName, ProgramName, DivisionChair, Dean, LOCRep, PENContact, Payees, HasBeenPaid, ReportSubmitted, Notes, AcademicYear, DeadlineUpcoming)
+            VALUES ?
+        `;
+
+        await pool.query(sql, [insertValues]);
+
+        res.redirect('/?year=' + nextYear);
+    } catch (err) {
+        console.error('Error cloning year:', err);
+        res.status(500).send('Failed to clone year.');
     }
+});
+
+app.post('/add-division', async (req, res) => {
+    const { divName, chair, dean, loc, pen, year } = req.body;
+
+    const deadlineUpcoming = req.body.deadlineUpcoming === 'Yes' ? 'Yes' : 'No';
 
     try {
         const sql = `
-            UPDATE ProgramFullInfo
-            SET DivisionName = ?,
-                DivisionChair = ?,
-                Dean = ?,
-                LOCRep = ?,
-                PENContact = ?,
-                DeadlineUpcoming = ?
-            WHERE DivisionName = ?
+            INSERT INTO ProgramFullInfo 
+                (DivisionName, DivisionChair, Dean, LOCRep, PENContact, DeadlineUpcoming, AcademicYear)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
         `;
 
         await pool.query(sql, [
@@ -130,59 +209,83 @@ app.post('/submit-division', async (req, res) => {
             dean,
             loc,
             pen,
-            deadlineUpcomingValue,
-            divName
+            deadlineUpcoming,
+            year
         ]);
 
-        res.redirect('/');
+        res.redirect('/?year=' + year);
     } catch (err) {
-        console.error("Error updating division:", err);
-        res.status(500).send("Update failed.");
+        console.error('Error adding division:', err);
+        res.status(500).send('Failed to add division.');
+    }
+});
+
+app.post('/submit-division', async (req, res) => {
+    try {
+        const { divName, chair, dean, loc, pen, deadlineUpcoming, academicYear } = req.body;
+
+        // Ensure checkbox defaults to "No" if unchecked
+        const deadlineValue = deadlineUpcoming === 'Yes' ? 'Yes' : 'No';
+
+        // Bulk update all programs in this division and year
+        const sql = `
+            UPDATE ProgramFullInfo
+            SET DivisionChair = ?, Dean = ?, LOCRep = ?, PENContact = ?, DeadlineUpcoming = ?
+            WHERE DivisionName = ? AND AcademicYear = ?`;
+
+        await pool.execute(sql, [
+            chair,
+            dean,
+            loc,
+            pen,
+            deadlineValue,
+            divName,
+            academicYear
+        ]);
+
+        // Reload page with selected year
+        res.redirect('/?year=' + academicYear);
+    } catch (err) {
+        console.error('Error updating division info:', err);
+        res.status(500).send('Error updating division info.');
     }
 });
 
 app.post('/submit-button', async (req, res) => {
+    const { ProgramID, DivisionName, ProgramName, DivisionChair, Dean, LOCRep, PENContact, Payees, HasBeenPaid, ReportSubmitted, Notes, AcademicYear } = req.body;
+
     try {
-        const program = req.body;
-
-        // Debug: see what was submitted
-        console.log('Form submission:', program);
-
-        // Make sure ProgramID exists
-        if (!program.ProgramID) {
-            return res.status(400).send('Error: ProgramID is missing.');
-        }
-
-        // Default to null if fields are empty
-        const DivisionName = program.DivisionName || null;
-        const ProgramName = program.ProgramName || null;
-        const DivisionChair = program.DivisionChair || null;
-        const Dean = program.Dean || null;
-        const LOCRep = program.LOCRep || null;
-        const PENContact = program.PENContact || null;
-        const Payees = program.Payees || null;
-        const HasBeenPaid = program.HasBeenPaid === 'yes' ? 'yes' : 'no';
-        const ReportSubmitted = program.ReportSubmitted === 'yes' ? 'yes' : 'no';
-        const Notes = program.Notes || null;
-        const ProgramID = program.ProgramID;
-
+        // Update row and timestamp
         const sql = `
             UPDATE ProgramFullInfo
-            SET DivisionName = ?, ProgramName = ?, DivisionChair = ?, Dean = ?, LOCRep = ?, PENContact = ?, Payees = ?, HasBeenPaid = ?, ReportSubmitted = ?, Notes = ?
-            WHERE ProgramID = ?
-        `;
+            SET DivisionName=?, ProgramName=?, DivisionChair=?, Dean=?, LOCRep=?, PENContact=?, Payees=?, HasBeenPaid=?, ReportSubmitted=?, Notes=?, timestamp=NOW()
+            WHERE ProgramID=? AND AcademicYear=?`;
+        
+        await pool.execute(sql, [
+            DivisionName,
+            ProgramName,
+            DivisionChair,
+            Dean,
+            LOCRep,
+            PENContact,
+            Payees,
+            HasBeenPaid,
+            ReportSubmitted,
+            Notes,
+            ProgramID,
+            AcademicYear
+        ]);
 
-        const params = [DivisionName, ProgramName, DivisionChair, Dean, LOCRep, PENContact, Payees, HasBeenPaid, ReportSubmitted, Notes, ProgramID];
+        // Return updated row
+        const [updatedRows] = await pool.query(
+            'SELECT * FROM ProgramFullInfo WHERE ProgramID=? AND AcademicYear=?',
+            [ProgramID, AcademicYear]
+        );
 
-        const [result] = await pool.execute(sql, params);
-
-        console.log(`Program with ID ${ProgramID} updated successfully.`);
-
-        res.redirect('/summary');
-
+         res.redirect(`/summary?year=${AcademicYear}`);
     } catch (err) {
-        console.error('Error updating program:', err);
-        res.status(500).send('Database update error: ' + err.message);
+        console.error(err);
+        res.status(500).json({ error: 'Update failed' });
     }
 });
 

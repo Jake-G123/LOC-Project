@@ -10,7 +10,34 @@
         <nav class="header-nav">
             <a href="/">Home</a>
             <a href="/summary">Form</a>
+            <ul>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Admin ▼</a>
+                    <div class="dropdown-content">
+                        <form id="clone-year-form" action="/clone-year" method="POST" class="clone-year-form">
+                            <input type="hidden" name="year" value="<%= selectedYear %>">
+                            <button type="submit" class="clone-btn">Clone to Next Year</button>
+                            <button type="button" class="create-btn">Create in works</button>
+                            <button type="button" class="delete-btn">Delete in works</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
         </nav>
+
+        
+
+        <form id="year-form" class="year-selector">
+            <label for="year">Year:</label>
+            <select name="year" id="year">
+                <% for (let y = 2025; y <= new Date().getFullYear() + 1; y++) { 
+                    const display = `${y} - ${(y + 1).toString().slice(-2)}`;
+                %>
+                    <option value="<%= y %>" <%= y == selectedYear ? "selected" : "" %>>
+                        <%= display %>
+                    </option>
+                <% } %>
+            </select>
+        </form>
     </div>
 </header>
-</html>

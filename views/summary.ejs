@@ -18,43 +18,44 @@
     <!-- Include header partial -->
     <%- include('partials/header') %>
 
-
-    <table id="loc-table" class="display">
-        <thead>
-            <tr>
-                <th>Division</th>
-                <th>Program</th>
-                <th>Chair</th>
-                <th>Dean</th>
-                <th>LOC Rep</th>
-                <th>Contact</th>
-                <th>Payee</th>
-                <th>Paid</th>
-                <th>Submitted</th>
-                <th>Notes</th>
-                <th>Last Updated</th>
-                <th></th> <!-- Edit button column -->
-            </tr>
-        </thead>
-        <tbody>
-            <% fields.forEach(field => { %>
-                <tr data-programid="<%= field.ProgramID %>">
-                    <td><%= field.DivisionName %></td>
-                    <td><%= field.ProgramName %></td>
-                    <td><%= field.DivisionChair %></td>
-                    <td><%= field.Dean %></td>
-                    <td><%= field.LOCRep %></td>
-                    <td><%= field.PENContact %></td>
-                    <td><%= field.Payees %></td>
-                    <td><%= field.HasBeenPaid %></td>
-                    <td><%= field.ReportSubmitted %></td>
-                    <td><%= field.Notes %></td>
-                    <td><%= field.timestamp ? field.timestamp.toLocaleString() : "" %></td>
-                    <td><button type="button" onclick="rowSelect(<%= field.ProgramID %>)">Edit</button></td>
+    <div class="table-container">
+        <table id="loc-table" class="display">
+            <thead>
+                <tr>
+                    <th>Division</th>
+                    <th>Program</th>
+                    <th>Chair</th>
+                    <th>Dean</th>
+                    <th>LOC Rep</th>
+                    <th>Contact</th>
+                    <th>Payee</th>
+                    <th>Paid</th>
+                    <th>Submitted</th>
+                    <th>Notes</th>
+                    <th>Last Updated</th>
+                    <th></th> <!-- Edit button column -->
                 </tr>
-            <% }) %>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <% fields.forEach(field => { %>
+                    <tr data-programid="<%= field.ProgramID %>">
+                        <td><%= field.DivisionName %></td>
+                        <td><%= field.ProgramName %></td>
+                        <td><%= field.DivisionChair %></td>
+                        <td><%= field.Dean %></td>
+                        <td><%= field.LOCRep %></td>
+                        <td><%= field.PENContact %></td>
+                        <td><%= field.Payees %></td>
+                        <td><%= field.HasBeenPaid %></td>
+                        <td><%= field.ReportSubmitted %></td>
+                        <td><%= field.Notes %></td>
+                        <td><%= field.timestamp ? field.timestamp.toLocaleString() : "" %></td>
+                        <td><button type="button" onclick="rowSelect(<%= field.ProgramID %>)">Edit</button></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
 
     <script defer>
         // Initialize DataTable
@@ -67,6 +68,7 @@
     <div id="edit-form-container" class="hidden">
     <form id="edit-form" action="submit-button" method="post">
         <input type="hidden" id="editProgramID" name="ProgramID">
+        <input type="hidden" id="editAcademicYear" name="AcademicYear">
         <label>Division: <input type="text" id="editDivisionName" name="DivisionName"></label>
         <span id="err-div" class ="error">Division can't be blank</span>
         <label>Program: <input type="text" id="editProgramName" name="ProgramName"></label>
