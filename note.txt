@@ -1,25 +1,3 @@
-Division
-Academic Program
-Division Chair
-Dean
-LOC Rep
-PEN Contact
-Payee(s)
-Has Been Paid (Yes/No)
-Report Submitted (Yes/No)
-Notes
-
-division : req.body.divname,
-        chair : req.body.chair,
-        dean : req.body.dean,
-        rep : req.body.rep,
-        contact : req.body.loc,
-        payee : req.body.payee,
-        paid : req.body.paid,
-        submitted : req.body.submitted,
-        note : req.body.note
-
-
 Some things that I believe need to be fixed/added :
         - Input validation currently does not work. The assignment seems to imply that Academic Program is the only one that cant be blank?
         - Editing adds new row instead of changing pre existing --FIXED BUT FORM DOES NOT USE UPDATED OBJECT--
@@ -32,3 +10,21 @@ Some things that I believe need to be fixed/added :
 
                 One HTML validation error.
         - Might need to have multiple academic programs per division. This would be a nightmare to implement
+
+
+Things that need to be changed 12/1/2025: Take aways on project and current build
+        - Swap the organization from the divisions to the program in the app.js on load so if deadline is set it will order correctly
+        - Have a add/delete is almost implemented but broke the logic earlier and deleted most of that code. Will set up at a later time if needed
+                * Seems un-needed at this time.
+        - Styling should have the header bar work but with the animation given for the flip it will get covered by and need to find a fix to that
+                * There is no sticky on header currently
+                * Re organization of the styling would help too 
+        - The validation for the home page isn't working/implemented
+                * Unsure if its needed since the actual division name for division page
+        - Need to change naming of some properties for user interface. 
+                * Home and form don't make much sense
+        - Another tab to have a check list checker board style on if the program is going to be reviewed. 
+                * Can connect to the header year to find it
+                * Un-needed at this point in time
+        - Remove the check deadline on the divisions itself its not needed.
+                * Take logic from home page organization and swap it with the form page for object name
