@@ -1,7 +1,10 @@
 /* loc.js - Corrected script to handle Division and Program dropdowns.
     The data for programInfo is hardcoded here temporarily since app.js is a server file.
+
+    THIS IS NO LONGER IN THE FINAL VERSION OF THE PROJECT JUST A REFERENCE. Commented out for sake of keeping the codebase clean.
 */
 
+/*
 const divisionContacts = {
    
     "select": ["", "", "", "", ""], 
@@ -206,4 +209,4 @@ document.getElementById('cancel').addEventListener('click', function() {
     divisionFields.style.display = "none";
     save.style.display = "none";
     cancel.style.display = "none";
-});
+});*/

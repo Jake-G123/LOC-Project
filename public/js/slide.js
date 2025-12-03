@@ -1,3 +1,4 @@
+// Slide.js for the button toggles on the slide page
 document.addEventListener("DOMContentLoaded", () => {
 
     const toggleButtons = document.querySelectorAll(".toggle-button");
@@ -13,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+// For Edit Page
 document.addEventListener("DOMContentLoaded", () => {
 
     const toggleButtons = document.querySelectorAll(".toggle-button-edit");

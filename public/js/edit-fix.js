@@ -3,8 +3,8 @@
 * edit-fix.js
 * This is the bunk edit to how to make the edit buttons work properly
 *
-* NOTICE:
-* When we learn how to push/edit info on the server side we will make the code up date
+* The previous implementation used ProgramID to identify rows, which caused issues when multiple programs had the same ID across different years.
+* This revised version uses ProgramName as the unique identifier for selecting and editing rows.
 *
 *
 */

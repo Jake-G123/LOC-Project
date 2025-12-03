@@ -106,7 +106,7 @@ app.get('/db-test-division', async(req, res) => {
         res.status(500).send('Database error: ' + err.message);
     }
 });
-
+// Summary page route
 app.get('/summary', async (req, res) => {
     try {
         const selectedYear = req.query.year || new Date().getFullYear();
@@ -122,7 +122,7 @@ app.get('/summary', async (req, res) => {
         res.status(500).send('Error loading programs.');
     }
 });
-
+// Endpoint to get summary data for a specific year
 app.get('/summary-data', async (req, res) => {
   const year = req.query.year;
   const [fields] = await pool.execute(
@@ -190,7 +190,7 @@ app.post('/clone-year', async (req, res) => {
         res.status(500).send('Failed to clone year.');
     }
 });
-
+// Handle new division addition
 app.post('/add-division', async (req, res) => {
     const { divName, chair, dean, loc, pen, year } = req.body;
 
@@ -219,7 +219,7 @@ app.post('/add-division', async (req, res) => {
         res.status(500).send('Failed to add division.');
     }
 });
-
+// Handle division info update
 app.post('/submit-division', async (req, res) => {
     try {
         const { divName, chair, dean, loc, pen, deadlineUpcoming, academicYear } = req.body;
@@ -250,7 +250,7 @@ app.post('/submit-division', async (req, res) => {
         res.status(500).send('Error updating division info.');
     }
 });
-
+// Handle program info update
 app.post('/submit-button', async (req, res) => {
     const { ProgramID, DivisionName, ProgramName, DivisionChair, Dean, LOCRep, PENContact, Payees, HasBeenPaid, ReportSubmitted, Notes, AcademicYear } = req.body;
 
@@ -288,7 +288,7 @@ app.post('/submit-button', async (req, res) => {
         res.status(500).json({ error: 'Update failed' });
     }
 });
-
+// Start the server
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
 });

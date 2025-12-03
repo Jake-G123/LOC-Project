@@ -1,13 +1,16 @@
+
+// Checks the year value and redirects to that year's data
 const yearDropdown = document.getElementById('year');
 
-  if (yearDropdown) {
+if (yearDropdown) {
     yearDropdown.addEventListener('change', () => {
-      const selectedYear = yearDropdown.value;
-      
-      window.location.href = `/?year=${selectedYear}`;
+        const selectedYear = yearDropdown.value;
+        
+        window.location.href = `/?year=${selectedYear}`;
     });
-  }
+}
 
+// Highlights upcoming deadlines based on checkbox status
 document.querySelectorAll('.deadline-upcoming input[type="checkbox"]').forEach(checkbox => {
     checkbox.addEventListener('change', function() {
         const fieldset = this.closest('fieldset');
@@ -19,6 +22,7 @@ document.querySelectorAll('.deadline-upcoming input[type="checkbox"]').forEach(c
     });
 });
 
+// Confirmation prompt for cloning divisions to the next year
 document.addEventListener('DOMContentLoaded', () => {
     const cloneForm = document.getElementById('clone-year-form');
 
@@ -34,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Initialize DataTable for better table management
 let table = new DataTable('#loc-table', {
     "order": [],
     "columnDefs": [{ "orderable": false, "targets": 11 }],

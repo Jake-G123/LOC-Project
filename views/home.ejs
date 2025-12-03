@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="styles/styles.css">
     
 
-    <!-- SERVER PORT IS 3004 : DIGITAL OCEAN YOUR IP : 3004 -->
+    <!-- SERVER PORT IS 3010 : DIGITAL OCEAN YOUR IP : 3010 -->
 </head>
 <body>
     <!-- For later -->
@@ -28,53 +28,53 @@
 
             <div class="details hidden">
                 <form action="/submit-division" method="POST">
-    <input type="hidden" name="academicYear" value="<%= selectedYear %>">
+            <input type="hidden" name="academicYear" value="<%= selectedYear %>">
 
-    <div class="division-name">
-        <label>Division: 
-            <input type="text" name="divName" value="<%= d.DivisionName %>">
-        </label>
-    </div>
+            <div class="division-name">
+                <label>Division: 
+                    <input type="text" name="divName" value="<%= d.DivisionName %>">
+                </label>
+            </div>
 
-    <div class="chair">
-        <label>Chair: 
-            <input type="text" name="chair" value="<%= d.DivisionChair %>">
-        </label>
-    </div>
+            <div class="chair">
+                <label>Chair: 
+                    <input type="text" name="chair" value="<%= d.DivisionChair %>">
+                </label>
+            </div>
 
-    <div class="dean">
-        <label>Dean: 
-            <input type="text" name="dean" value="<%= d.Dean %>">
-        </label>
-    </div>
+            <div class="dean">
+                <label>Dean: 
+                    <input type="text" name="dean" value="<%= d.Dean %>">
+                </label>
+            </div>
 
-    <div class="loc">
-        <label>LOC Rep: 
-            <input type="text" name="loc" value="<%= d.LOCRep %>">
-        </label>
-    </div>
+            <div class="loc">
+                <label>LOC Rep: 
+                    <input type="text" name="loc" value="<%= d.LOCRep %>">
+                </label>
+            </div>
 
-    <div class="pen">
-        <label>PEN Contact: 
-            <input type="text" name="pen" value="<%= d.PENContact %>">
-        </label>
-    </div>
+            <div class="pen">
+                <label>PEN Contact: 
+                    <input type="text" name="pen" value="<%= d.PENContact %>">
+                </label>
+            </div>
 
-    <label>Deadline Upcoming:
-        <input type="checkbox" name="deadlineUpcoming" value="Yes" <%= d.DeadlineUpcoming === 'Yes' ? 'checked' : '' %>>
-    </label>
+            <label>Deadline Upcoming:
+                <input type="checkbox" name="deadlineUpcoming" value="Yes" <%= d.DeadlineUpcoming === 'Yes' ? 'checked' : '' %>>
+            </label>
 
-    <div class="buttons">
-        <button type="submit" class="save-btn">Save</button>
-        <button type="reset" class="cancel-btn">Cancel</button>
-    </div>
-</form>
+            <div class="buttons">
+                <button type="submit" class="save-btn">Save</button>
+                <button type="reset" class="cancel-btn">Cancel</button>
+            </div>
+        </form>
             </div>
         </fieldset>
         <% }) %>
     </div>
 
-
+    <!-- HERE FOR THE REFERENCE ON THE EDIT OF THE CODE ABOVE. -->
 
     <!--<div class ="edit-division-container">
         <fieldset>

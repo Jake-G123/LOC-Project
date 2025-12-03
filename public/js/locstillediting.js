@@ -5,13 +5,17 @@ import programInfo from app.js;
 
     Will be updated when we make it to server side code but in the mean time it works 
 
-    VERY CLUNKY AND EASY TO BREAK BE CAREFUL
+    VERY CLUNKY AND EASY TO BREAK BE CAREFUL. 
 
     TODO: The division info needs the updated names and chair. If its blank just put the same name as above for the
     information given.
+
+    THIS CODE HAS BEEN COMMENTED OUT AS IT IS NO LONGER IN THE FINAL VERSION OF THE PROJECT. IT IS KEPT HERE FOR REFERENCE PURPOSES.
 */
 // Names for both objects are swapped from what they actually are as to not break old code. Should be fixed
 // Info for each division
+
+/*
 const programInfo = {
     "fine-arts": ["Music"],
     "humanities": ["Communication Studies"],
@@ -58,7 +62,7 @@ const divisionInfo = {
     "health-science": ["Practical Nursing", "Leslie Kessler", "Lionel Candido Flores", "Thom Jackson", "Liz Peterson", "Name", "no", "no", "notes"],
     "trades": ["Automotive Technology", "David Lewis", "Lea Ann Simpson", "Ben Orr", "Mary Singer", "Name", "no", "no", "notes"],
     "tran-studies": ["Health and Physical Education", "Paul Metevier", "Lionel Candido Flores", "Thom Jackson", "Liz Peterson", "Name", "no", "no", "notes"]
-    */
+    
 };
 document.addEventListener("DOMContentLoaded", () => {
     const divisionSelect = document.getElementById("division");
@@ -115,9 +119,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 newOption.textContent = item;
                 programSelect.appendChild(newOption);
             });
-        /*
+        
 
-        */
+        
     });
     // if program dropdown has a selected program, add program info to text boxes
     programSelect.addEventListener("change", () => {
@@ -145,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Check for input changes compared to currentInfo
     const checkChanges = () => {
         if (
-            /*divName.value !== currentInfo[0] || */chair.value !== currentInfo[0] || dean.value !== currentInfo[1] || loc.value !== currentInfo[2] || pen.value !== currentInfo[3] || payee.value !== currentInfo[4] || paid.value !== currentInfo[5] || submitted.value !== currentInfo[6]
+            divName.value !== currentInfo[0] || chair.value !== currentInfo[0] || dean.value !== currentInfo[1] || loc.value !== currentInfo[2] || pen.value !== currentInfo[3] || payee.value !== currentInfo[4] || paid.value !== currentInfo[5] || submitted.value !== currentInfo[6]
         ) {
             save.style.display = "block";
             cancel.style.display = "block";
@@ -156,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     //calls to check current info on input
-    [/*divName, */chair, dean, loc, pen, payee, paid, submitted, notes].forEach(input => {
+    [divName, chair, dean, loc, pen, payee, paid, submitted, notes].forEach(input => {
         input.addEventListener("input", checkChanges);
     });
 
@@ -219,4 +223,4 @@ document.getElementById('cancel').addEventListener('click', function() {
     divisionFields.style.display = "none";
     save.style.display = "none";
     cancel.style.display = "none";
-});
+});*/
